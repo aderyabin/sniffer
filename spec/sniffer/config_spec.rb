@@ -13,6 +13,7 @@ RSpec.describe Sniffer::Config do
     expect(config.response_body).to be_truthy
     expect(config.whitelist_url).to eq(/.*/)
     expect(config.blacklist_url).to be_nil
+    expect(config.store).to be_truthy
   end
 
   it 'overrides a value' do
