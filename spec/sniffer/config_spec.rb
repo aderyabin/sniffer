@@ -14,6 +14,7 @@ RSpec.describe Sniffer::Config do
     expect(config.whitelist_url).to eq(/.*/)
     expect(config.blacklist_url).to be_nil
     expect(config.store).to be_truthy
+    expect(config.enabled).to be_falsey
   end
 
   it 'overrides a value' do

@@ -7,27 +7,44 @@ RSpec.describe Sniffer do
     expect(Sniffer::VERSION).not_to be nil
   end
 
-  context "data" do
+  describe ".disable!" do
+    it 'disable sniffer' do
+      Sniffer.config.enabled = true
+      expect {
+        Sniffer.disable!
+      }.to change { Sniffer.enabled? }.to(false)
+    end
+  end
+
+  describe ".enable!" do
+    it 'enable sniffer' do
+      expect {
+        Sniffer.enable!
+      }.to change { Sniffer.enabled? }.to(true)
+    end
+  end
+
+  describe ".data" do
     it "empty by default" do
       expect(Sniffer.data).to eq([])
     end
+  end
 
-    context ".store" do
-      it 'stores data items' do
-        data_item = Sniffer::DataItem.new
-        expect {
-          Sniffer.store(data_item)
-        }.to change { Sniffer.data }.to([data_item])
-      end
+  describe ".store" do
+    it 'stores data items' do
+      data_item = Sniffer::DataItem.new
+      expect {
+        Sniffer.store(data_item)
+      }.to change { Sniffer.data }.to([data_item])
     end
+  end
 
-    context ".clear!" do
-      it 'clear data' do
-        Sniffer.store(Sniffer::DataItem.new)
-        expect {
-          Sniffer.clear!
-        }.to change { Sniffer.data }.to([])
-      end
+  context ".clear!" do
+    it 'clear data' do
+      Sniffer.store(Sniffer::DataItem.new)
+      expect {
+        Sniffer.clear!
+      }.to change { Sniffer.data }.to([])
     end
   end
 end
