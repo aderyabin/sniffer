@@ -13,6 +13,18 @@ module Sniffer
       @config ||= Config.new
     end
 
+    def enable!
+      config.enabled = true
+    end
+
+    def disable!
+      config.enabled = false
+    end
+
+    def enabled?
+      config.enabled
+    end
+
     def configure
       yield(config) if block_given?
     end

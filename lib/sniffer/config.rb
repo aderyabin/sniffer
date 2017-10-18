@@ -15,6 +15,7 @@ module Sniffer
                 response_body: true,
                 whitelist_url:  /.*/,
                 blacklist_url: nil,
-                store: true
+                store: true,
+                enabled: false
   end
 end
