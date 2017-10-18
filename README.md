@@ -1,8 +1,7 @@
-# Sniffer
+# Sniffer [![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Maintainability](https://api.codeclimate.com/v1/badges/640cb17b3d748a49653f/maintainability)](https://codeclimate.com/github/aderyabin/sniffer/maintainability)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sniffer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+<a href="https://evilmartians.com/">
+<img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54"></a>
 
 ## Installation
 
