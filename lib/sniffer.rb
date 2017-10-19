@@ -33,6 +33,11 @@ module Sniffer
       @data = []
     end
 
+    def reset!
+      @config = Config.new
+      clear!
+    end
+
     def data
       @data ||= []
     end
@@ -43,3 +48,5 @@ module Sniffer
     end
   end
 end
+
+require "sniffer/adapters/net_http_adapter"
