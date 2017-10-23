@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require 'active_attr'
+
 module Sniffer
   # Sniffer data item stores a request info
   class DataItem
+    include ActiveAttr::MassAssignment
     attr_accessor :request, :response
 
     def to_h
@@ -14,6 +17,7 @@ module Sniffer
 
     # Stores http request data
     class Request
+      include ActiveAttr::MassAssignment
       attr_accessor :url, :headers, :body, :method, :ssl, :port
 
       def to_h
@@ -30,6 +34,7 @@ module Sniffer
 
     # Stores http response data
     class Response
+      include ActiveAttr::MassAssignment
       attr_accessor :status, :headers, :body
 
       def to_h
