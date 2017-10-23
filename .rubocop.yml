@@ -13,7 +13,7 @@ AllCops:
   StyleGuideCopsOnly: false
   TargetRubyVersion: 2.4
 
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Enabled: false
 
 Style/PercentLiteralDelimiters:
@@ -56,4 +56,7 @@ Rails/Date:
   Enabled: false
 
 Rails/TimeZone:
+  Enabled: false
+
+Security/YAMLLoad:
   Enabled: false

@@ -13,7 +13,7 @@ module Sniffer
         end
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
       def request_with_sniffer(req, body = nil, &block)
         if started? && Sniffer.enabled?
           data_item = Sniffer::DataItem.new
@@ -23,10 +23,10 @@ module Sniffer
             r.port = @port
             r.method = req.method
             r.headers = req.each_header.collect.to_h
-            r.body = req.body if Sniffer.config.request_body
+            r.body = req.body if Sniffer.config.log_request_body
           end
 
-          Sniffer.store(data_item)
+          Sniffer.store(data_item) if Sniffer.config.store
         end
 
         @response = request_without_sniffer(req, body, &block)

@@ -7,14 +7,14 @@ require "json"
 
 RSpec.describe Net::HTTP do
   def get_request
-    uri = URI.parse(Responses::GET_URL)
+    uri = URI.parse('http://localhost:4567/')
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
     http.request(request)
   end
 
   def post_request
-    uri = URI.parse(Responses::POST_URL)
+    uri = URI.parse('http://localhost:4567/data')
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data('lang' => 'Ruby', 'author' => 'Matz')
@@ -22,7 +22,7 @@ RSpec.describe Net::HTTP do
   end
 
   def post_json
-    uri = URI.parse(Responses::JSON_URL)
+    uri = URI.parse('http://localhost:4567/json')
     header = { 'Content-Type' => 'text/json' }
     hash = { user: { name: 'Andrey', email: 'aderyabin@evilmartians.com' } }
     http = Net::HTTP.new(uri.host, uri.port)
@@ -32,7 +32,7 @@ RSpec.describe Net::HTTP do
   end
 
   def get_basic_auth
-    uri = URI.parse(Responses::GET_URL)
+    uri = URI.parse('http://localhost:4567/')
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
     request.basic_auth("username", "password")
