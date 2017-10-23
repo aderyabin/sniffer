@@ -11,5 +11,9 @@ module FakeWeb
     post "/data" do
       [201, { "content-length" => "7" }, "Created"]
     end
+
+    post "/json" do
+      [200, { "content-type" => "text/json" }, "{\"status\":\"OK\"}"]
+    end
   end
 end

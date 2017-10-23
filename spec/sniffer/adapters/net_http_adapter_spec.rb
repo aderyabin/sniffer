@@ -3,8 +3,9 @@
 require 'spec_helper'
 require "net/http"
 require "uri"
+require "json"
 
-RSpec.describe Sniffer::Adapters::NetHttpAdapter do
+RSpec.describe Net::HTTP do
   def get_request
     uri = URI.parse(Responses::GET_URL)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -20,25 +21,23 @@ RSpec.describe Sniffer::Adapters::NetHttpAdapter do
     http.request(request)
   end
 
-  it 'stores request if enabled', enabled: true do
-    get_request
-    expect(Sniffer.data).to_not be_empty
+  def post_json
+    uri = URI.parse(Responses::JSON_URL)
+    header = { 'Content-Type' => 'text/json' }
+    hash = { user: { name: 'Andrey', email: 'aderyabin@evilmartians.com' } }
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.body = hash.to_json
+    http.request(request)
   end
 
-  it 'stores GET request correctly', enabled: true do
-    get_request
-    data = Sniffer.data[0]
-    expect(data.to_h).to eq(Responses.get_response)
+  def get_basic_auth
+    uri = URI.parse(Responses::GET_URL)
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request.basic_auth("username", "password")
+    http.request(request)
   end
 
-  it 'stores POST request correctly', enabled: true do
-    post_request
-    data = Sniffer.data[0]
-    expect(data.to_h).to eq(Responses.post_response)
-  end
-
-  it 'not stores request if disabled' do
-    get_request
-    expect(Sniffer.data).to be_empty
-  end
+  it_behaves_like "a sniffered"
 end

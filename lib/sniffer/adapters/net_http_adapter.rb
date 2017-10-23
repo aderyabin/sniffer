@@ -23,7 +23,7 @@ module Sniffer
             r.port = @port
             r.method = req.method
             r.headers = req.each_header.collect.to_h
-            r.body = req.body
+            r.body = req.body if Sniffer.config.request_body
           end
 
           Sniffer.store(data_item)
