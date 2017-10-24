@@ -3,15 +3,15 @@
 require 'spec_helper'
 
 RSpec.describe Sniffer::DataItem::Request do
-  subject { described_class.new(url: 'http://evilmartians.com', headers: { 'user-agent': 'Ruby' }, body: "author=Matz", method: "GET", ssl: false, port: 80) }
+  subject { described_class.new(url: 'http://evilmartians.com', headers: { 'user-agent': 'Ruby' }, body: "author=Matz", method: "GET", port: 80) }
 
   context "#to_h" do
     it 'empty by default' do
-      expect(described_class.new.to_h).to eq(url: nil, body: nil, method: nil, headers: nil, port: nil, ssl: nil)
+      expect(described_class.new.to_h).to eq(url: nil, body: nil, method: nil, headers: nil, port: nil)
     end
 
     it 'returns values' do
-      expect(subject.to_h).to eq(url: "http://evilmartians.com", headers: { "user-agent": "Ruby" }, body: "author=Matz", method: "GET", port: 80, ssl: false)
+      expect(subject.to_h).to eq(url: "http://evilmartians.com", headers: { "user-agent": "Ruby" }, body: "author=Matz", method: "GET", port: 80)
     end
   end
 

@@ -16,10 +16,9 @@ module Sniffer
                   request_method: true,
                   response_status: true,
                   response_headers: true,
-                  response_body: true
+                  response_body: true,
+                  benchmark: true
                 },
-                whitelist_url:  /.*/,
-                blacklist_url: nil,
                 store: true,
                 enabled: false
   end

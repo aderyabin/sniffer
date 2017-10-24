@@ -8,7 +8,6 @@
     host: localhost:4567
   :body:
   :method: GET
-  :ssl: false
   :port: 4567
 :response:
   :status: 200
@@ -19,3 +18,4 @@
     x-frame-options: SAMEORIGIN
     content-length: '2'
   :body: OK
+  :benchmark: 0.0006

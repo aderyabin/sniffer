@@ -29,5 +29,6 @@ RSpec.configure do |config|
   config.before(:each, when_enabled) do
     Sniffer.reset!
     Sniffer.enable!
+    allow_any_instance_of(Sniffer::DataItem::Response).to receive(:benchmark).and_return(0.0006)
   end
 end

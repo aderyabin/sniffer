@@ -9,7 +9,6 @@
     connection: close
   :body:
   :method: GET
-  :ssl: false
   :port: 4567
 :response:
   :status: 200
@@ -21,3 +20,4 @@
     connection: close
     content-length: '2'
   :body: OK
+  :benchmark: 0.0006

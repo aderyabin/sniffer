@@ -9,7 +9,6 @@
     connection: close
   :body: '{"user":{"name":"Andrey","email":"aderyabin@evilmartians.com"}}'
   :method: POST
-  :ssl: false
   :port: 4567
 :response:
   :status: 200
@@ -19,3 +18,4 @@
     connection: close
     content-length: '15'
   :body: '{"status":"OK"}'
+  :benchmark: 0.0006
