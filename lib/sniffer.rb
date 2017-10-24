@@ -33,13 +33,25 @@ module Sniffer
       @data = []
     end
 
+    def reset!
+      @config = Config.new
+      clear!
+    end
+
     def data
       @data ||= []
     end
 
     def store(data_item)
+      return unless config.store
       data
       @data << data_item
     end
+
+    def logger
+      config.logger
+    end
   end
 end
+
+require "sniffer/adapters/net_http_adapter"

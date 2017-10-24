@@ -1,0 +1,23 @@
+---
+:request:
+  :url: "http://localhost:4567/data"
+  :headers:
+    accept-encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    accept: "*/*"
+    user-agent: Ruby
+    content-type: application/x-www-form-urlencoded
+    connection: close
+  :body: lang=Ruby&author=Matz
+  :method: POST
+  :ssl: false
+  :port: 4567
+:response:
+  :status: 201
+  :headers:
+    content-type: text/html;charset=utf-8
+    x-xss-protection: 1; mode=block
+    x-content-type-options: nosniff
+    x-frame-options: SAMEORIGIN
+    connection: close
+    content-length: '7'
+  :body: Created
