@@ -7,10 +7,15 @@ require "json"
 
 RSpec.describe Net::HTTP do
   def get_request
-    uri = URI.parse('http://localhost:4567/')
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    http.request(request)
+    Net::HTTP.get_response(URI('http://localhost:4567/?lang=ruby'))
+  end
+
+  def get_request_dynamic_params
+    uri = URI('http://localhost:4567')
+    params = { lang: 'ruby' }
+    uri.query = URI.encode_www_form(params)
+
+    Net::HTTP.get_response(uri)
   end
 
   def post_request

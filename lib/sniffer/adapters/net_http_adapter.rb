@@ -13,20 +13,21 @@ module Sniffer
         end
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def request_with_sniffer(req, body = nil, &block)
         if started? && Sniffer.enabled?
           data_item = Sniffer::DataItem.new
           data_item.request = Sniffer::DataItem::Request.new.tap do |r|
-            r.url = req.path
-            r.ssl = use_ssl?
-            r.port = @port
+            r.url = "http://#{@address}:#{@port}#{req.path}"
             r.method = req.method
+            r.port = @port
+            r.ssl = use_ssl?
             r.headers = req.each_header.collect.to_h
-            r.body = req.body if Sniffer.config.log_request_body
+            r.body = req.body
           end
 
-          Sniffer.store(data_item) if Sniffer.config.store
+          Sniffer.store(data_item)
+          data_item.request.to_log
         end
 
         @response = request_without_sniffer(req, body, &block)
@@ -37,6 +38,8 @@ module Sniffer
             r.headers = @response.each_header.collect.to_h
             r.body = @response.body
           end
+
+          data_item.log
         end
 
         @response

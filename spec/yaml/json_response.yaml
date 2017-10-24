@@ -1,6 +1,6 @@
 ---
 :request:
-  :url: "/json"
+  :url: "http://localhost:4567/json"
   :headers:
     content-type: text/json
     accept-encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3

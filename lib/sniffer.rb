@@ -43,8 +43,13 @@ module Sniffer
     end
 
     def store(data_item)
+      return unless config.store
       data
       @data << data_item
+    end
+
+    def logger
+      config.logger
     end
   end
 end

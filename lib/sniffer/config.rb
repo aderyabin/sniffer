@@ -8,15 +8,16 @@ module Sniffer
     config_name :sniffer
 
     attr_config logger: Logger.new($stdout),
-                log_request_url: true,
-                log_request_headers: true,
-                log_request_body: true,
-                log_request_method: true,
-                log_request_port: true,
-                log_request_ssl: true,
-                log_response_status: true,
-                log_response_headers: true,
-                log_response_body: true,
+                severity: Logger::Severity::DEBUG,
+                log: {
+                  request_url: true,
+                  request_headers: true,
+                  request_body: true,
+                  request_method: true,
+                  response_status: true,
+                  response_headers: true,
+                  response_body: true
+                },
                 whitelist_url:  /.*/,
                 blacklist_url: nil,
                 store: true,
