@@ -13,8 +13,7 @@ RSpec.describe Sniffer::Config do
     expect(config.log['response_status']).to be_truthy
     expect(config.log['response_headers']).to be_truthy
     expect(config.log['response_body']).to be_truthy
-    expect(config.whitelist_url).to eq(/.*/)
-    expect(config.blacklist_url).to be_nil
+    expect(config.log['benchmark']).to be_truthy
     expect(config.store).to be_truthy
     expect(config.enabled).to be_falsey
   end

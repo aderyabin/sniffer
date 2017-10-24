@@ -9,7 +9,6 @@
     connection: close
   :body: lang=Ruby&author=Matz
   :method: POST
-  :ssl: false
   :port: 4567
 :response:
   :status: 201
@@ -21,3 +20,4 @@
     connection: close
     content-length: '7'
   :body: Created
+  :benchmark: 0.0006

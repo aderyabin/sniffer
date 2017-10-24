@@ -43,7 +43,7 @@ module Sniffer
 
     # Stores http request data
     class Request < HttpObject
-      attr_accessor :url, :headers, :body, :method, :ssl, :port
+      attr_accessor :url, :headers, :body, :method, :port
 
       def to_h
         {
@@ -51,7 +51,6 @@ module Sniffer
           headers: headers,
           body: body,
           method: method,
-          ssl: ssl,
           port: port
         }
       end
@@ -75,16 +74,18 @@ module Sniffer
 
     # Stores http response data
     class Response < HttpObject
-      attr_accessor :status, :headers, :body
+      attr_accessor :status, :headers, :body, :benchmark
 
       def to_h
         {
           status: status,
           headers: headers,
-          body: body
+          body: body,
+          benchmark: benchmark
         }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def to_log
         {}.tap do |hash|
           hash[:status] = status if log_settings["response_status"]
@@ -95,9 +96,11 @@ module Sniffer
             end
           end
 
+          hash[:benchmark] = benchmark if log_settings["benchmark"]
           hash[:response_body] = body if log_settings["response_body"]
         end
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'net/http'
+require 'benchmark'
 
 module Sniffer
   module Adapters
@@ -21,7 +22,6 @@ module Sniffer
             r.url = "http://#{@address}:#{@port}#{req.path}"
             r.method = req.method
             r.port = @port
-            r.ssl = use_ssl?
             r.headers = req.each_header.collect.to_h
             r.body = req.body
           end
@@ -30,13 +30,16 @@ module Sniffer
           data_item.request.to_log
         end
 
-        @response = request_without_sniffer(req, body, &block)
+        bm = Benchmark.realtime do
+          @response = request_without_sniffer(req, body, &block)
+        end
 
         if started? && Sniffer.enabled?
           data_item.response = Sniffer::DataItem::Response.new.tap do |r|
             r.status = @response.code.to_i
             r.headers = @response.each_header.collect.to_h
             r.body = @response.body
+            r.benchmark = bm
           end
 
           data_item.log
