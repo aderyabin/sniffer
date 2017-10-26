@@ -7,31 +7,29 @@ require "json"
 
 RSpec.describe Net::HTTP do
   def get_request
-    Net::HTTP.get_response(URI('http://localhost:4567/?lang=ruby'))
+    uri = URI.parse('http://localhost:4567/?lang=ruby&author=matz')
+    Net::HTTP.get(uri)
   end
 
   def get_request_dynamic_params
-    uri = URI('http://localhost:4567')
-    params = { lang: 'ruby' }
-    uri.query = URI.encode_www_form(params)
-
-    Net::HTTP.get_response(uri)
+    uri = URI.parse('http://localhost:4567/')
+    uri.query = URI.encode_www_form(lang: 'ruby', author: 'matz')
+    Net::HTTP.get(uri)
   end
 
   def post_request
-    uri = URI.parse('http://localhost:4567/data')
+    uri = URI.parse('http://localhost:4567/data?lang=ruby')
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data('lang' => 'Ruby', 'author' => 'Matz')
+    request.set_form_data('author' => 'Matz')
     http.request(request)
   end
 
   def post_json
     uri = URI.parse('http://localhost:4567/json')
-    header = { 'Content-Type' => 'text/json' }
-    hash = { user: { name: 'Andrey', email: 'aderyabin@evilmartians.com' } }
+    hash = { 'lang' => 'Ruby', 'author' => 'Matz' }
     http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request = Net::HTTP::Post.new(uri.request_uri, 'Content-Type' => 'text/json')
     request.body = hash.to_json
     http.request(request)
   end
@@ -44,5 +42,12 @@ RSpec.describe Net::HTTP do
     http.request(request)
   end
 
-  it_behaves_like "a sniffered"
+  it 'logs', enabled: true do
+    logger = double
+    Sniffer.config.logger = logger
+    expect(logger).to receive(:log).with(0, "{\"port\":4567,\"host\":\"localhost\",\"query\":\"/?lang=ruby&author=matz\",\"rq_accept_encoding\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\",\"rq_accept\":\"*/*\",\"rq_user_agent\":\"Ruby\",\"rq_host\":\"localhost:4567\",\"method\":\"GET\",\"request_body\":\"\",\"status\":200,\"rs_content_type\":\"text/html;charset=utf-8\",\"rs_x_xss_protection\":\"1; mode=block\",\"rs_x_content_type_options\":\"nosniff\",\"rs_x_frame_options\":\"SAMEORIGIN\",\"rs_content_length\":\"2\",\"benchmark\":0.0006,\"response_body\":\"OK\"}")
+    get_request
+  end
+
+  it_behaves_like "a sniffered", 'net_http'
 end
