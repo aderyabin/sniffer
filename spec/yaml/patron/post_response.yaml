@@ -2,18 +2,18 @@
 :request:
   :host: "localhost"
   :port: 4567
-  :query: /?
-  :headers:
-    authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
-  :body: ""
-  :method: GET
+  :query: /data?lang=ruby
+  :headers: {}
+  :body: author=Matz
+  :method: :post
+  :port: 4567
 :response:
-  :status: 200
+  :status: 201
   :headers:
     content-type: text/html;charset=utf-8
     x-xss-protection: 1; mode=block
     x-content-type-options: nosniff
     x-frame-options: SAMEORIGIN
-    content-length: '2'
-  :body: OK
+    content-length: '7'
+  :body: Created
   :benchmark: 0.0006
