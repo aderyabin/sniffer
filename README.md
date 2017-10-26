@@ -120,6 +120,8 @@ By default output log looks like that:
 ```
 D, [2017-10-26T16:47:14.007152 #59511] DEBUG -- : {"port":80,"host":"example.com","query":"/?lang=ruby&author=matz","rq_connection":"close","method":"get","request_body":"","status":200,"rs_accept_ranges":"bytes","rs_cache_control":"max-age=604800","rs_content_type":"text/html","rs_date":"Thu, 26 Oct 2017 13:47:13 GMT","rs_etag":"\"359670651+gzip\"","rs_expires":"Thu, 02 Nov 2017 13:47:13 GMT","rs_last_modified":"Fri, 09 Aug 2013 23:54:35 GMT","rs_server":"ECS (lga/1385)","rs_vary":"Accept-Encoding","rs_x_cache":"HIT","rs_content_length":"1270","rs_connection":"close","timing":0.513012999901548,"response_body":"OK"}
 ```
+where `rq_xxx` is request header and `rs_xxx` - response header
+
 
 ## Development
 
