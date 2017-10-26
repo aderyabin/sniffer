@@ -2,15 +2,17 @@
 
 require "logger"
 
-require "sniffer/version"
-require "sniffer/config"
-require "sniffer/data_item"
+require_relative "sniffer/version"
+require_relative "sniffer/config"
+require_relative "sniffer/data_item"
 
 # Sniffer allows to log http requests
 module Sniffer
   class << self
     def config
       @config ||= Config.new
+      yield @config if block_given?
+      @config
     end
 
     def enable!
@@ -54,7 +56,7 @@ module Sniffer
   end
 end
 
-require "sniffer/adapters/net_http_adapter"
-require "sniffer/adapters/httpclient_adapter"
-require "sniffer/adapters/http_adapter"
-require "sniffer/adapters/patron_adapter"
+require_relative "sniffer/adapters/net_http_adapter"
+require_relative "sniffer/adapters/httpclient_adapter"
+require_relative "sniffer/adapters/http_adapter"
+require_relative "sniffer/adapters/patron_adapter"

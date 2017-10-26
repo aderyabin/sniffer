@@ -47,4 +47,20 @@ RSpec.describe Sniffer do
       }.to change { Sniffer.data }.to([])
     end
   end
+
+  context "config" do
+    it 'configurable' do
+      expect{
+        Sniffer.config.enabled = true
+      }.to change{Sniffer.config.enabled}.from(false).to(true)
+    end
+
+    it 'configurable in block' do
+      expect{
+        Sniffer.config do |c|
+          c.enabled = true
+        end
+      }.to change{Sniffer.config.enabled}.from(false).to(true)
+    end
+  end
 end
