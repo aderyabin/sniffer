@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "http"
 require 'spec_helper'
 
 RSpec.describe HTTP do
@@ -9,8 +8,6 @@ RSpec.describe HTTP do
   let(:get_request_dynamic_params) { HTTP.get("http://localhost:4567/?lang=ruby", headers: headers, params: { author: 'matz' }) }
   let(:post_request) { HTTP.post('http://localhost:4567/data?lang=ruby', body: "author=Matz") }
   let(:post_json) { HTTP.post('http://localhost:4567/json', json: { 'lang' => 'Ruby', 'author' => 'Matz' }) }
-
-  let(:get_basic_auth) { HTTP.basic_auth(user: "username", pass: "password").get('http://localhost:4567', headers: headers) }
 
   it 'logs', enabled: true do
     logger = double

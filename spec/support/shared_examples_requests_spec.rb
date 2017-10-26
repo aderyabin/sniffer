@@ -13,6 +13,7 @@ RSpec.shared_examples "a sniffered" do |fldr|
   end
 
   it 'stores GET request with dynamic params correctly', enabled: true do
+    skip "Not implemented in adapter" unless respond_to?(:get_request_dynamic_params)
     get_request_dynamic_params
     data = Sniffer.data[0]
     expect(data.to_h).to match_yaml_file("#{fldr}/get_response_dynamic")
@@ -26,11 +27,6 @@ RSpec.shared_examples "a sniffered" do |fldr|
   it 'stores JSON correctly', enabled: true do
     post_json
     expect(Sniffer.data[0].to_h).to match_yaml_file("#{fldr}/json_response")
-  end
-
-  it 'stores Basic Auth', enabled: true do
-    get_basic_auth
-    expect(Sniffer.data[0].to_h).to match_yaml_file("#{fldr}/basic_auth_response")
   end
 
   it 'not stores request if disabled' do

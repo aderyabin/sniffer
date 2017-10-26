@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require 'httpclient'
+require "httpclient"
+require "jsonclient"
+require 'base64'
+require 'http'
+require 'patron'
+require "net/http"
+require "uri"
+require "json"
+
 require "sniffer"
 require "pry-byebug"
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))].each { |f| require f }

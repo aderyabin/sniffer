@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require "httpclient"
-require "jsonclient"
-require 'base64'
 
 RSpec.describe HTTPClient do
   let(:client) { HTTPClient.new }
@@ -24,11 +21,6 @@ RSpec.describe HTTPClient do
   def post_json
     uri = URI('http://localhost:4567/json')
     JSONClient.new.post(uri, 'lang' => 'Ruby', 'author' => 'Matz')
-  end
-
-  def get_basic_auth
-    auth = "Basic #{Base64.strict_encode64('username:password')}"
-    client.get('http://localhost:4567/', {}, 'Authorization' => auth)
   end
 
   it 'logs', enabled: true do
