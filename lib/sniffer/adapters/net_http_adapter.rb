@@ -19,11 +19,12 @@ module Sniffer
         if started? && Sniffer.enabled?
           data_item = Sniffer::DataItem.new
           data_item.request = Sniffer::DataItem::Request.new.tap do |r|
-            r.url = "http://#{@address}:#{@port}#{req.path}"
+            r.host = @address
             r.method = req.method
+            r.query = req.path
             r.port = @port
             r.headers = req.each_header.collect.to_h
-            r.body = req.body
+            r.body = req.body.to_s
           end
 
           Sniffer.store(data_item)
@@ -38,7 +39,7 @@ module Sniffer
           data_item.response = Sniffer::DataItem::Response.new.tap do |r|
             r.status = @response.code.to_i
             r.headers = @response.each_header.collect.to_h
-            r.body = @response.body
+            r.body = @response.body.to_s
             r.benchmark = bm
           end
 

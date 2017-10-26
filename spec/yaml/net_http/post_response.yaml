@@ -1,13 +1,15 @@
 ---
 :request:
-  :url: "http://localhost:4567/data"
+  :host: "localhost"
+  :port: 4567
+  :query: /data?lang=ruby
   :headers:
     accept-encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
     accept: "*/*"
     user-agent: Ruby
     content-type: application/x-www-form-urlencoded
     connection: close
-  :body: lang=Ruby&author=Matz
+  :body: author=Matz
   :method: POST
   :port: 4567
 :response:

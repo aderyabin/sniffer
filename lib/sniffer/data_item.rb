@@ -43,25 +43,31 @@ module Sniffer
 
     # Stores http request data
     class Request < HttpObject
-      attr_accessor :url, :headers, :body, :method, :port
+      attr_accessor :host, :port, :query, :method, :headers, :body
 
       def to_h
         {
-          url: url,
+          host: host,
+          query: query,
+          port: port,
           headers: headers,
           body: body,
-          method: method,
-          port: port
+          method: method
         }
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
       def to_log
         {}.tap do |hash|
-          hash[:url] = url if log_settings["request_url"]
+          if log_settings["request_url"]
+            hash[:port] = port
+            hash[:host] = host
+            hash[:query] = query
+          end
+
           if log_settings["request_headers"]
             headers.each do |(k, v)|
-              hash[:"rq_#{k.to_s.tr("-", '_')}"] = v
+              hash[:"rq_#{k.to_s.tr("-", '_').downcase}"] = v
             end
           end
 
@@ -70,7 +76,7 @@ module Sniffer
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
     # Stores http response data
     class Response < HttpObject
@@ -92,7 +98,7 @@ module Sniffer
 
           if log_settings["response_headers"]
             headers.each do |(k, v)|
-              hash[:"rs_#{k.to_s.tr("-", '_')}"] = v
+              hash[:"rs_#{k.to_s.tr("-", '_').downcase}"] = v
             end
           end
 

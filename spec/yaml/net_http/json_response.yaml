@@ -1,13 +1,15 @@
 ---
 :request:
-  :url: "http://localhost:4567/json"
+  :host: "localhost"
+  :port: 4567
+  :query: /json
   :headers:
     content-type: text/json
     accept-encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
     accept: "*/*"
     user-agent: Ruby
     connection: close
-  :body: '{"user":{"name":"Andrey","email":"aderyabin@evilmartians.com"}}'
+  :body: '{"lang":"Ruby","author":"Matz"}'
   :method: POST
   :port: 4567
 :response:
