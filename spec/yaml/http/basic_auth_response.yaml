@@ -1,0 +1,25 @@
+---
+:request:
+  :host: "localhost"
+  :port: 4567
+  :query: /
+  :headers:
+    accept-encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    accept: "*/*"
+    user-agent: Ruby
+    authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+    connection: "close"
+    host: localhost:4567
+  :body: ""
+  :method: :get
+:response:
+  :status: 200
+  :headers:
+    content-type: text/html;charset=utf-8
+    x-xss-protection: 1; mode=block
+    x-content-type-options: nosniff
+    x-frame-options: SAMEORIGIN
+    connection: close
+    content-length: '2'
+  :body: OK
+  :benchmark: 0.0006
