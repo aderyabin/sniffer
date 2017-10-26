@@ -55,3 +55,4 @@ module Sniffer
 end
 
 require "sniffer/adapters/net_http_adapter"
+require "sniffer/adapters/httpclient_adapter"
