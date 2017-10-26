@@ -19,4 +19,4 @@
     x-frame-options: SAMEORIGIN
     content-length: '2'
   :body: OK
-  :benchmark: 0.0006
+  :timing: 0.0006

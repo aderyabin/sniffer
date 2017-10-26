@@ -36,7 +36,7 @@ module Sniffer
             r.status = @res.status
             r.headers = @res.headers
             r.body = @res.body.to_s
-            r.benchmark = bm
+            r.timing = bm
           end
 
           data_item.log

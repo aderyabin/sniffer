@@ -80,14 +80,14 @@ module Sniffer
 
     # Stores http response data
     class Response < HttpObject
-      attr_accessor :status, :headers, :body, :benchmark
+      attr_accessor :status, :headers, :body, :timing
 
       def to_h
         {
           status: status,
           headers: headers,
           body: body,
-          benchmark: benchmark
+          timing: timing
         }
       end
 
@@ -102,7 +102,7 @@ module Sniffer
             end
           end
 
-          hash[:benchmark] = benchmark if log_settings["benchmark"]
+          hash[:timing] = timing if log_settings["timing"]
           hash[:response_body] = body if log_settings["response_body"]
         end
       end

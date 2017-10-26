@@ -47,7 +47,7 @@ module Sniffer
             r.status = res.status_code.to_i
             r.headers = res.headers
             r.body = res.body
-            r.benchmark = bm
+            r.timing = bm
           end
           conn.push(res)
 

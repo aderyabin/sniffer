@@ -21,4 +21,4 @@
     content-length: '2'
     connection: "close"
   :body: OK
-  :benchmark: 0.0006
+  :timing: 0.0006

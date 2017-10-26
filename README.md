@@ -51,7 +51,7 @@ Sniffer.config do
     response_status: true,
     response_headers: true,
     response_body: true,
-    benchmark: true
+    timing: true
   },
   store: true, # save requests/responses to Sniffer.data
   enabled: false  # Sniffer disabled by default
@@ -93,7 +93,7 @@ Sniffer.data[0].to_h
 #      "Content-Length"=>"606",
 #      "Connection"=>"close"},
 #    :body=> "OK",
-#    :benchmark=>0.23753299983218312}}
+#    :timing=>0.23753299983218312}}
 ```
 
 You can clear saved data
@@ -118,7 +118,7 @@ Sniffer.disable!
 By default output log looks like that:
 
 ```
-D, [2017-10-26T16:47:14.007152 #59511] DEBUG -- : {"port":80,"host":"example.com","query":"/?lang=ruby&author=matz","rq_connection":"close","method":"get","request_body":"","status":200,"rs_accept_ranges":"bytes","rs_cache_control":"max-age=604800","rs_content_type":"text/html","rs_date":"Thu, 26 Oct 2017 13:47:13 GMT","rs_etag":"\"359670651+gzip\"","rs_expires":"Thu, 02 Nov 2017 13:47:13 GMT","rs_last_modified":"Fri, 09 Aug 2013 23:54:35 GMT","rs_server":"ECS (lga/1385)","rs_vary":"Accept-Encoding","rs_x_cache":"HIT","rs_content_length":"1270","rs_connection":"close","benchmark":0.513012999901548,"response_body":"OK"}
+D, [2017-10-26T16:47:14.007152 #59511] DEBUG -- : {"port":80,"host":"example.com","query":"/?lang=ruby&author=matz","rq_connection":"close","method":"get","request_body":"","status":200,"rs_accept_ranges":"bytes","rs_cache_control":"max-age=604800","rs_content_type":"text/html","rs_date":"Thu, 26 Oct 2017 13:47:13 GMT","rs_etag":"\"359670651+gzip\"","rs_expires":"Thu, 02 Nov 2017 13:47:13 GMT","rs_last_modified":"Fri, 09 Aug 2013 23:54:35 GMT","rs_server":"ECS (lga/1385)","rs_vary":"Accept-Encoding","rs_x_cache":"HIT","rs_content_length":"1270","rs_connection":"close","timing":0.513012999901548,"response_body":"OK"}
 ```
 
 ## Development

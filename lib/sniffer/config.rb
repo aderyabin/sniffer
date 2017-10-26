@@ -17,7 +17,7 @@ module Sniffer
                   response_status: true,
                   response_headers: true,
                   response_body: true,
-                  benchmark: true
+                  timing: true
                 },
                 store: true,
                 enabled: false

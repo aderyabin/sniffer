@@ -18,4 +18,4 @@
     connection: close
     content-length: '7'
   :body: Created
-  :benchmark: 0.0006
+  :timing: 0.0006

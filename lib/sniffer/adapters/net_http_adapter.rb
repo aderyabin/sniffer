@@ -40,7 +40,7 @@ module Sniffer
             r.status = @response.code.to_i
             r.headers = @response.each_header.collect.to_h
             r.body = @response.body.to_s
-            r.benchmark = bm
+            r.timing = bm
           end
 
           data_item.log
