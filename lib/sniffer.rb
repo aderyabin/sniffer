@@ -56,3 +56,4 @@ end
 
 require "sniffer/adapters/net_http_adapter"
 require "sniffer/adapters/httpclient_adapter"
+require "sniffer/adapters/http_adapter"
