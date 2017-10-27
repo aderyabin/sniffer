@@ -8,7 +8,7 @@ RSpec.describe Sniffer do
   end
 
   describe ".disable!" do
-    it 'disable sniffer' do
+    it 'disables sniffer' do
       Sniffer.config.enabled = true
       expect {
         Sniffer.disable!
@@ -17,7 +17,7 @@ RSpec.describe Sniffer do
   end
 
   describe ".enable!" do
-    it 'enable sniffer' do
+    it 'enables sniffer' do
       expect {
         Sniffer.enable!
       }.to change { Sniffer.enabled? }.to(true)
@@ -25,8 +25,8 @@ RSpec.describe Sniffer do
   end
 
   describe ".data" do
-    it "empty by default" do
-      expect(Sniffer.data).to eq([])
+    it "is empty by default" do
+      expect(Sniffer.data).to be_empty
     end
   end
 
@@ -35,32 +35,33 @@ RSpec.describe Sniffer do
       data_item = Sniffer::DataItem.new
       expect {
         Sniffer.store(data_item)
-      }.to change { Sniffer.data }.to([data_item])
+      }.to change { Sniffer.data.include?(data_item) }.to(true)
     end
   end
 
   context ".clear!" do
-    it 'clear data' do
+    it 'clears data' do
       Sniffer.store(Sniffer::DataItem.new)
+
       expect {
         Sniffer.clear!
-      }.to change { Sniffer.data }.to([])
+      }.to change { Sniffer.data.empty? }.to(true)
     end
   end
 
   context "config" do
-    it 'configurable' do
-      expect{
+    it 'is configurable' do
+      expect {
         Sniffer.config.enabled = true
-      }.to change{Sniffer.config.enabled}.from(false).to(true)
+      }.to change { Sniffer.config.enabled }.from(false).to(true)
     end
 
-    it 'configurable in block' do
-      expect{
+    it 'is configurable with block' do
+      expect {
         Sniffer.config do |c|
           c.enabled = true
         end
-      }.to change{Sniffer.config.enabled}.from(false).to(true)
+      }.to change { Sniffer.config.enabled }.from(false).to(true)
     end
   end
 end
