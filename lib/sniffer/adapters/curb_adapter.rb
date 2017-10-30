@@ -1,0 +1,87 @@
+# frozen_string_literal: true
+
+module Sniffer
+  module Adapters
+    # Curl adapter
+    module CurlAdapter
+      def self.included(base)
+        base.class_eval do
+          alias_method :http_without_sniffer, :http
+          alias_method :http, :http_with_sniffer
+
+          alias_method :http_post_without_sniffer, :http_post
+          alias_method :http_post, :http_post_with_sniffer
+        end
+      end
+
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      def http_with_sniffer(verb)
+        sniffer_request(verb)
+
+        http_without_sniffer(verb)
+
+        bm = Benchmark.realtime do
+          @res = http_without_sniffer(verb)
+        end
+
+        sniffer_response(bm)
+
+        @res
+      end
+
+      def http_post_with_sniffer(*args)
+        sniffer_request(:POST, *args)
+
+        bm = Benchmark.realtime do
+          @res = http_post_without_sniffer(*args)
+        end
+
+        sniffer_response(bm)
+
+        @res
+      end
+
+      private
+
+      def data_item
+        @data_item ||= Sniffer::DataItem.new if Sniffer.enabled?
+      end
+
+      def sniffer_request(verb, *args)
+        return unless data_item
+
+        data_item.request = Sniffer::DataItem::Request.new.tap do |r|
+          uri = URI(url)
+          query = uri.path
+          query += "?#{uri.query}" if uri.query
+          r.host = uri.host
+          r.method = verb
+          r.query = query
+          r.headers = headers.collect.to_h
+          r.body = args.join("&")
+          r.port = uri.port
+        end
+
+        Sniffer.store(data_item)
+      end
+
+      def sniffer_response(timing)
+        return unless data_item
+
+        data_item.response = Sniffer::DataItem::Response.new.tap do |r|
+          _, *http_headers = header_str.split(/[\r\n]+/).map(&:strip)
+          http_headers = Hash[http_headers.flat_map { |s| s.scan(/^(\S+): (.+)/) }]
+
+          r.status = status.to_i
+          r.headers = http_headers
+          r.body = body_str
+          r.timing = timing
+        end
+
+        data_item.log
+      end
+    end
+  end
+end
+
+Curl::Easy.send(:include, Sniffer::Adapters::CurlAdapter) if defined?(::Curl::Easy)
