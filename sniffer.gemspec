@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "httpclient"
   spec.add_development_dependency "http"
   spec.add_development_dependency "patron"
+  spec.add_development_dependency "curb"
 end
