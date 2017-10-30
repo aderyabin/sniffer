@@ -17,16 +17,12 @@ module Sniffer
       def do_get_block_with_sniffer(req, proxy, conn, &block)
         if Sniffer.enabled?
           data_item = Sniffer::DataItem.new
-          data_item.request = Sniffer::DataItem::Request.new.tap do |r|
-            r.host = req.header.request_uri.host
-            r.query = req.header.create_query_uri
-            r.method = req.header.request_method
-            r.headers = req.headers
-            r.body = req.body
-            r.port = req.header.request_uri.port
-          end
-
-          p data_item.request.to_h
+          data_item.request = Sniffer::DataItem::Request.new(host: req.header.request_uri.host,
+                                                             query: req.header.create_query_uri,
+                                                             method: req.header.request_method,
+                                                             headers: req.headers,
+                                                             body: req.body,
+                                                             port: req.header.request_uri.port)
 
           Sniffer.store(data_item)
         end
@@ -43,12 +39,11 @@ module Sniffer
 
         if Sniffer.enabled?
           res = conn.pop
-          data_item.response = Sniffer::DataItem::Response.new.tap do |r|
-            r.status = res.status_code.to_i
-            r.headers = res.headers
-            r.body = res.body
-            r.timing = bm
-          end
+          data_item.response = Sniffer::DataItem::Response.new(status: res.status_code.to_i,
+                                                               headers: res.headers,
+                                                               body: res.body,
+                                                               timing: bm)
+
           conn.push(res)
 
           data_item.log

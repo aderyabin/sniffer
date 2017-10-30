@@ -18,17 +18,14 @@ module Sniffer
       def request_with_sniffer(req, body = nil, &block)
         if started? && Sniffer.enabled?
           data_item = Sniffer::DataItem.new
-          data_item.request = Sniffer::DataItem::Request.new.tap do |r|
-            r.host = @address
-            r.method = req.method
-            r.query = req.path
-            r.port = @port
-            r.headers = req.each_header.collect.to_h
-            r.body = req.body.to_s
-          end
+          data_item.request = Sniffer::DataItem::Request.new(host: @address,
+                                                             method: req.method,
+                                                             query: req.path,
+                                                             port: @port,
+                                                             headers: req.each_header.collect.to_h,
+                                                             body: req.body.to_s)
 
           Sniffer.store(data_item)
-          data_item.request.to_log
         end
 
         bm = Benchmark.realtime do
@@ -36,12 +33,10 @@ module Sniffer
         end
 
         if started? && Sniffer.enabled?
-          data_item.response = Sniffer::DataItem::Response.new.tap do |r|
-            r.status = @response.code.to_i
-            r.headers = @response.each_header.collect.to_h
-            r.body = @response.body.to_s
-            r.timing = bm
-          end
+          data_item.response = Sniffer::DataItem::Response.new(status: @response.code.to_i,
+                                                               headers: @response.each_header.collect.to_h,
+                                                               body: @response.body.to_s,
+                                                               timing: bm)
 
           data_item.log
         end

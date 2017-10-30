@@ -50,17 +50,16 @@ module Sniffer
       def sniffer_request(verb, *args)
         return unless data_item
 
-        data_item.request = Sniffer::DataItem::Request.new.tap do |r|
-          uri = URI(url)
-          query = uri.path
-          query += "?#{uri.query}" if uri.query
-          r.host = uri.host
-          r.method = verb
-          r.query = query
-          r.headers = headers.collect.to_h
-          r.body = args.join("&")
-          r.port = uri.port
-        end
+        uri = URI(url)
+        query = uri.path
+        query += "?#{uri.query}" if uri.query
+
+        data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
+                                                           method: verb,
+                                                           query: query,
+                                                           headers: headers.collect.to_h,
+                                                           body: args.join("&"),
+                                                           port: uri.port)
 
         Sniffer.store(data_item)
       end
@@ -68,15 +67,13 @@ module Sniffer
       def sniffer_response(timing)
         return unless data_item
 
-        data_item.response = Sniffer::DataItem::Response.new.tap do |r|
-          _, *http_headers = header_str.split(/[\r\n]+/).map(&:strip)
-          http_headers = Hash[http_headers.flat_map { |s| s.scan(/^(\S+): (.+)/) }]
+        _, *http_headers = header_str.split(/[\r\n]+/).map(&:strip)
+        http_headers = Hash[http_headers.flat_map { |s| s.scan(/^(\S+): (.+)/) }]
 
-          r.status = status.to_i
-          r.headers = http_headers
-          r.body = body_str
-          r.timing = timing
-        end
+        data_item.response = Sniffer::DataItem::Response.new(status: status.to_i,
+                                                             headers: http_headers,
+                                                             body: body_str,
+                                                             timing: timing)
 
         data_item.log
       end

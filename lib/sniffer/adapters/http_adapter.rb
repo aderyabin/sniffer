@@ -32,16 +32,15 @@ module Sniffer
 
         if Sniffer.enabled?
           data_item = Sniffer::DataItem.new
-          data_item.request = Sniffer::DataItem::Request.new.tap do |r|
-            query = uri.path
-            query += "?#{uri.query}" if uri.query
-            r.host = uri.host
-            r.method = verb
-            r.query = query
-            r.headers = headers.collect.to_h
-            r.body = body.to_s
-            r.port = uri.port
-          end
+          query = uri.path
+          query += "?#{uri.query}" if uri.query
+
+          data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
+                                                             method: verb,
+                                                             query: query,
+                                                             headers: headers.collect.to_h,
+                                                             body: body.to_s,
+                                                             port: uri.port)
 
           Sniffer.store(data_item)
         end
@@ -51,12 +50,10 @@ module Sniffer
         end
 
         if Sniffer.enabled?
-          data_item.response = Sniffer::DataItem::Response.new.tap do |r|
-            r.status = @res.code
-            r.headers = @res.headers.collect.to_h
-            r.body = @res.body.to_s
-            r.timing = bm
-          end
+          data_item.response = Sniffer::DataItem::Response.new(status: @res.code,
+                                                               headers: @res.headers.collect.to_h,
+                                                               body: @res.body.to_s,
+                                                               timing: bm)
 
           data_item.log
         end
