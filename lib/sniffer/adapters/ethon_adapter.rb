@@ -45,32 +45,37 @@ module Sniffer
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def perform_with_sniffer
           bm = Benchmark.realtime do
-            @res = perform_without_sniffer
+            @return_code = Ethon::Curl.easy_perform(handle)
           end
 
           if Sniffer.enabled?
-            uri = URI("http://" + url)
+            uri = URI("http://" + @url)
             query = uri.path
             query += "?#{uri.query}" if uri.query
+            @data_item.request.query = query
 
-            status = response_headers.scan(%r{HTTP\/... (\d{3})}).flatten[0].to_i
-            hash_headers = response_headers
+            status = @response_headers.scan(%r{HTTP\/... (\d{3})}).flatten[0].to_i
+            hash_headers = @response_headers
                            .split(/\r?\n/)[1..-1]
                            .each_with_object({}) do |item, res|
               k, v = item.split(": ")
               res[k] = v
             end
 
-            @data_item.request.query = query
             @data_item.response = Sniffer::DataItem::Response.new(status: status,
                                                                   headers: hash_headers,
-                                                                  body: response_body,
+                                                                  body: @response_body,
                                                                   timing: bm)
             @data_item.log
 
           end
 
-          @res
+          if Ethon.logger.debug?
+            Ethon.logger.debug { "ETHON: performed #{log_inspect}" }
+          end
+          complete
+
+          @return_code
         end
         # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
       end
