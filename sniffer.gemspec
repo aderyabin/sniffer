@@ -33,4 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "http"
   spec.add_development_dependency "patron"
   spec.add_development_dependency "curb"
+  spec.add_development_dependency "ethon"
+  spec.add_development_dependency "faraday"
 end
