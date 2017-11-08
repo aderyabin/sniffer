@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_attr'
+require 'json'
 
 module Sniffer
   # Sniffer data item stores a request info
