@@ -14,6 +14,7 @@ Sniffer supports most common HTTP accessing libraries:
 * [Patron](https://github.com/toland/patron)
 * [Curb](https://github.com/taf2/curb/)
 * [Ethon](https://github.com/typhoeus/ethon)
+* [Typhoeus](https://github.com/typhoeus/typhoeus)
 
 
 <a href="https://evilmartians.com/">
