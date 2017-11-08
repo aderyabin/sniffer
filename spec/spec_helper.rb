@@ -10,6 +10,7 @@ require "net/http"
 require "uri"
 require "json"
 require "curl"
+require "ethon"
 
 require "sniffer"
 require "pry-byebug"

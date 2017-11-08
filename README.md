@@ -13,6 +13,7 @@ Sniffer supports most common HTTP accessing libraries:
 * [HTTPClient](https://github.com/nahi/httpclient)
 * [Patron](https://github.com/toland/patron)
 * [Curb](https://github.com/taf2/curb/)
+* [Ethon](https://github.com/typhoeus/ethon)
 
 
 <a href="https://evilmartians.com/">
