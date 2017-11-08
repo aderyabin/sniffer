@@ -10,10 +10,12 @@ require "net/http"
 require "uri"
 require "json"
 require "curl"
+require "typhoeus"
 require "ethon"
 
 require "sniffer"
 require "pry-byebug"
+
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))].each { |f| require f }
 
 when_enabled = { enabled: ->(v) { v } }

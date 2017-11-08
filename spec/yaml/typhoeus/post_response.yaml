@@ -1,0 +1,21 @@
+---
+:request:
+  :host: "localhost"
+  :port: 4567
+  :query: /data?lang=ruby
+  :headers:
+    user-agent: "Typhoeus - https://github.com/typhoeus/typhoeus"
+    expect: ""
+  :body: author=Matz
+  :method: :POST
+  :port: 4567
+:response:
+  :status: 201
+  :headers:
+    content-type: text/html;charset=utf-8
+    x-xss-protection: 1; mode=block
+    x-content-type-options: nosniff
+    x-frame-options: SAMEORIGIN
+    content-length: '7'
+  :body: Created
+  :timing: 0.0006

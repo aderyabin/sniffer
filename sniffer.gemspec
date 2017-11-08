@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "curb"
   spec.add_development_dependency "ethon"
   spec.add_development_dependency "faraday"
+  spec.add_development_dependency "typhoeus"
 end
