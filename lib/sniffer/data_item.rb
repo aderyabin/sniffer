@@ -11,8 +11,8 @@ module Sniffer
 
     def to_h
       {
-        request: request&.to_h,
-        response: response&.to_h
+        request: request && request.to_h,
+        response: response && response.to_h
       }
     end
 
