@@ -21,5 +21,13 @@ module Sniffer
                 },
                 store: true,
                 enabled: false
+
+    def capacity?
+      store.is_a?(Hash) && store.key?(:capacity)
+    end
+
+    def capacity
+      store.fetch(:capacity).to_i
+    end
   end
 end

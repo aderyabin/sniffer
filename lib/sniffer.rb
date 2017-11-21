@@ -8,7 +8,7 @@ require_relative "sniffer/data_item"
 
 # Sniffer allows to log http requests
 module Sniffer
-  @data = Set.new
+  @data = []
 
   class << self
     attr_reader :data
@@ -45,7 +45,9 @@ module Sniffer
     end
 
     def store(data_item)
-      @data.add(data_item) if config.store
+      return unless config.store
+      @data.shift if config.capacity? && @data.length == config.capacity
+      @data << data_item
     end
 
     def logger

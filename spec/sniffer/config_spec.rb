@@ -23,4 +23,20 @@ RSpec.describe Sniffer::Config do
       config.log['request_headers'] = false
     }.to change { config.log['request_headers'] }.from(true).to(false)
   end
+
+  describe '#store' do
+    it 'allows store to be a hash' do
+      config.store = {}
+      expect(config.store).to be_truthy
+      expect(config.capacity?).to be_falsey
+      expect { config.capacity }.to raise_error KeyError
+    end
+
+    it 'allows capacity to be set' do
+      config.store = { capacity: 50 }
+      expect(config.store).to be_truthy
+      expect(config.capacity?).to be_truthy
+      expect(config.capacity).to eq 50
+    end
+  end
 end

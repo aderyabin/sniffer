@@ -108,6 +108,12 @@ You can clear saved data
 Sniffer.clear!
 ```
 
+You can configure capacity of storage to prevent the huge memory usage
+
+```
+Sniffer.config.store = {capacity: 1000}
+```
+
 You can reset config to default
 
 ```

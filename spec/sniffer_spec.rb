@@ -37,6 +37,19 @@ RSpec.describe Sniffer do
         Sniffer.store(data_item)
       }.to change { Sniffer.data.include?(data_item) }.to(true)
     end
+
+    it 'stores no more than capacity if set' do
+      Sniffer.config.store = { capacity: 1 }
+
+      first = Sniffer::DataItem.new
+      Sniffer.store(first)
+      expect(Sniffer.data.include?(first)).to be_truthy
+
+      second = Sniffer::DataItem.new
+      Sniffer.store(second)
+      expect(Sniffer.data.include?(first)).to be_falsey
+      expect(Sniffer.data.include?(second)).to be_truthy
+    end
   end
 
   context ".clear!" do
