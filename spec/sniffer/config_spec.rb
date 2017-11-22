@@ -29,6 +29,7 @@ RSpec.describe Sniffer::Config do
       config.store = {}
       expect(config.store).to be_truthy
       expect(config.capacity?).to be_falsey
+      expect(config.rotate?).to be_falsey
       expect { config.capacity }.to raise_error KeyError
     end
 
@@ -36,7 +37,16 @@ RSpec.describe Sniffer::Config do
       config.store = { capacity: 50 }
       expect(config.store).to be_truthy
       expect(config.capacity?).to be_truthy
+      expect(config.rotate?).to be_truthy
       expect(config.capacity).to eq 50
+    end
+
+    it 'allows rotate to be set with capacity' do
+      config.store = { capacity: 50, rotate: false }
+      expect(config.rotate?).to be_falsey
+
+      config.store = { capacity: 50, rotate: true }
+      expect(config.rotate?).to be_truthy
     end
   end
 end

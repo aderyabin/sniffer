@@ -46,12 +46,31 @@ module Sniffer
 
     def store(data_item)
       return unless config.store
-      @data.shift if config.capacity? && @data.length == config.capacity
-      @data << data_item
+
+      if config.rotate?
+        rotate(data_item)
+      else
+        push(data_item) unless overflow?
+      end
     end
 
     def logger
       config.logger
+    end
+
+    private
+
+    def rotate(data_item)
+      @data.shift if overflow?
+      push(data_item)
+    end
+
+    def push(data_item)
+      @data.push(data_item)
+    end
+
+    def overflow?
+      config.capacity? && @data.length >= config.capacity
     end
   end
 end

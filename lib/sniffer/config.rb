@@ -29,5 +29,10 @@ module Sniffer
     def capacity
       store.fetch(:capacity).to_i
     end
+
+    def rotate?
+      return false unless capacity?
+      store.fetch(:rotate, true)
+    end
   end
 end

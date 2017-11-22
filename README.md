@@ -108,9 +108,15 @@ You can clear saved data
 Sniffer.clear!
 ```
 
-You can configure capacity of storage to prevent the huge memory usage
+You can configure capacity of storage to prevent the huge memory usage and set up log rotation.
+By default log rotation is active (when capacity is set) and log works like a queue.
+If rotation is disabled - requests will be logged until result log size reaches the capacity.
 
 ```
+# will fill the storage and stop logging
+Sniffer.config.store = {capacity: 1000, rotate: false}
+
+# will rotate logs to fit 1000 results (rotate is true by default)
 Sniffer.config.store = {capacity: 1000}
 ```
 
