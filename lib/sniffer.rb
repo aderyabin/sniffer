@@ -5,14 +5,11 @@ require "logger"
 require_relative "sniffer/version"
 require_relative "sniffer/config"
 require_relative "sniffer/data_item"
+require_relative "sniffer/data"
 
 # Sniffer allows to log http requests
 module Sniffer
-  @data = []
-
   class << self
-    attr_reader :data
-
     def config
       @config ||= Config.new
       yield @config if block_given?
@@ -44,33 +41,16 @@ module Sniffer
       clear!
     end
 
-    def store(data_item)
-      return unless config.store
+    def data
+      @data ||= Sniffer::Data.new
+    end
 
-      if config.rotate?
-        rotate(data_item)
-      else
-        push(data_item) unless overflow?
-      end
+    def store(data_item)
+      data.store(data_item)
     end
 
     def logger
       config.logger
-    end
-
-    private
-
-    def rotate(data_item)
-      @data.shift if overflow?
-      push(data_item)
-    end
-
-    def push(data_item)
-      @data.push(data_item)
-    end
-
-    def overflow?
-      config.capacity? && @data.length >= config.capacity
     end
   end
 end
