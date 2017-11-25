@@ -21,5 +21,18 @@ module Sniffer
                 },
                 store: true,
                 enabled: false
+
+    def capacity?
+      store.is_a?(Hash) && store.key?(:capacity)
+    end
+
+    def capacity
+      store.fetch(:capacity).to_i
+    end
+
+    def rotate?
+      return false unless capacity?
+      store.fetch(:rotate, true)
+    end
   end
 end
