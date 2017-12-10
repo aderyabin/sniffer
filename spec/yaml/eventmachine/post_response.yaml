@@ -1,0 +1,20 @@
+---
+:request:
+  :host: "localhost"
+  :query: /data?lang=ruby
+  :port: 4567
+  :headers: {}
+  :body: author=Matz
+  :method: :POST
+  :port: 4567
+:response:
+  :status: 201
+  :headers:
+    content-type: text/html;charset=utf-8
+    x-xss-protection: 1; mode=block
+    x-content-type-options: nosniff
+    x-frame-options: SAMEORIGIN
+    connection: close
+    content-length: '7'
+  :body: Created
+  :timing: 0.0006
