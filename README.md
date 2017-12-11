@@ -15,6 +15,7 @@ Sniffer supports most common HTTP accessing libraries:
 * [Curb](https://github.com/taf2/curb/)
 * [Ethon](https://github.com/typhoeus/ethon)
 * [Typhoeus](https://github.com/typhoeus/typhoeus)
+* [EM-HTTP-Request](https://github.com/igrigorik/em-http-request)
 
 
 <a href="https://evilmartians.com/">
