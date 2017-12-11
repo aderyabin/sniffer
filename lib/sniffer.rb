@@ -17,15 +17,16 @@ module Sniffer
     end
 
     def enable!
-      config.enabled = true
+      Thread.current[:sniffer] = true
     end
 
     def disable!
-      config.enabled = false
+      Thread.current[:sniffer] = false
     end
 
     def enabled?
-      config.enabled
+      Thread.current[:sniffer] = config.enabled if Thread.current[:sniffer].nil?
+      !!Thread.current[:sniffer]
     end
 
     def configure
@@ -38,6 +39,7 @@ module Sniffer
 
     def reset!
       @config = Config.new
+      Thread.current[:sniffer] = config.enabled
       clear!
     end
 

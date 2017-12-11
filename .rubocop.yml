@@ -33,10 +33,16 @@ Style/BlockDelimiters:
   Exclude:
     - 'spec/**/*.rb'
 
+Style/DoubleNegation:
+  Enabled: false
+
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: no_space
 
 Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
   Enabled: false
 
 Metrics/MethodLength:

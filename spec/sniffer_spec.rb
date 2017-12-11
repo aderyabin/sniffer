@@ -9,7 +9,7 @@ RSpec.describe Sniffer do
 
   describe ".disable!" do
     it 'disables sniffer' do
-      Sniffer.config.enabled = true
+      Sniffer.enable!
       expect {
         Sniffer.disable!
       }.to change { Sniffer.enabled? }.to(false)
@@ -88,5 +88,14 @@ RSpec.describe Sniffer do
         end
       }.to change { Sniffer.config.enabled }.from(false).to(true)
     end
+  end
+
+  it 'theadsafe' do
+    expect do
+      Thread.new do
+        Sniffer.enable!
+        expect(Sniffer.enabled?).to be_truthy
+      end.join
+    end.not_to change { Sniffer.enabled? }
   end
 end
