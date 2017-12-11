@@ -1,5 +1,4 @@
-# Sniffer [![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Maintainability](https://api.codeclimate.com/v1/badges/640cb17b3d748a49653f/maintainability)](https://codeclimate.com/github/aderyabin/sniffer/maintainability)
-
+# Sniffer [![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer)
 
 Sniffer aims to help:
 
