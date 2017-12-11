@@ -4,7 +4,7 @@ module Sniffer
   module Adapters
     # Em-Http-Connection Adapter
     module EventMachineAdapter
-      # Overrides
+      # Overrides #send_request, #parse_response, #on_body_data
       module Client
         def self.included(base)
           base.class_eval do
@@ -54,10 +54,6 @@ module Sniffer
           end
 
           on_body_data_without_sniffer(data)
-        end
-
-        def set_timing(timing)
-          @data_item.response.timing = timing
         end
       end
     end
