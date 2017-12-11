@@ -151,6 +151,13 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/aderyabin/sniffer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+## Acknowledge
+
+* [Sergey Ponomarev](https://github.com/sponomarev)
+* [Salahutdinov Dmitry](https://github.com/dsalahutdinov)
+* [Stanislav Chereshkevich](https://github.com/dissident)
+* [Anatoliy Kurichev](https://github.com/russo-matrosso)
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
