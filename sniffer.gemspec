@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "curb", ">= 0.9.4"
   spec.add_development_dependency "ethon", ">= 0.11.0"
   spec.add_development_dependency "typhoeus", ">= 0.9.0"
+  spec.add_development_dependency "em-http-request", ">= 1.1.0"
 end

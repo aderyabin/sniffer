@@ -1,0 +1,24 @@
+---
+:request:
+  :host: "localhost"
+  :query: "/?lang=ruby&author=matz"
+  :port: 4567
+  :headers:
+    accept-encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    accept: "*/*"
+    user-agent: Ruby
+    host: "localhost:4567"
+  :body: ""
+  :method: :GET
+  :port: 4567
+:response:
+  :status: 200
+  :headers:
+    content-type: text/html;charset=utf-8
+    x-xss-protection: 1; mode=block
+    x-content-type-options: nosniff
+    x-frame-options: SAMEORIGIN
+    content-length: '2'
+    connection: "close"
+  :body: OK
+  :timing: 0.0006
