@@ -4,12 +4,12 @@ require 'spec_helper'
 
 RSpec.describe EventMachine do
   let(:client) { EventMachine.new }
-  let(:headers) { { "accept-encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3", "accept" => "*/*", "user-agent" => "Ruby", "host" => "localhost:4567" } }
+  let(:headers) { { 'accept-encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'accept' => '*/*', 'user-agent' => 'Ruby', 'host' => 'localhost:4567' } }
 
   let(:get_request) {
     EventMachine.run {
-      http = EventMachine::HttpRequest.new("http://localhost:4567").get :query => {'lang' => 'ruby', "author" => "matz"},
-                                                                        :head => headers
+      http = EventMachine::HttpRequest.new("http://localhost:4567").get query: { 'lang' => 'ruby', 'author' => 'matz' },
+                                                                        head: headers
       http.callback {
         EventMachine.stop
       }
@@ -18,7 +18,7 @@ RSpec.describe EventMachine do
 
   let(:post_request) do
     EventMachine.run {
-      http = EventMachine::HttpRequest.new("http://localhost:4567/data").post :query => {'lang' => 'ruby'}, :body => "author=Matz"
+      http = EventMachine::HttpRequest.new("http://localhost:4567/data").post query: { 'lang' => 'ruby' }, body: 'author=Matz'
       http.callback {
         EventMachine.stop
       }
@@ -27,8 +27,8 @@ RSpec.describe EventMachine do
 
   let(:post_json) do
     EventMachine.run {
-      http = EventMachine::HttpRequest.new("http://localhost:4567/json").post :head => { 'Content-Type' => 'application/json; charset=UTF-8' },
-                                                                              :body => { 'lang' => 'Ruby', 'author' => 'Matz' }.to_json
+      http = EventMachine::HttpRequest.new("http://localhost:4567/json").post head: { 'Content-Type' => 'application/json; charset=UTF-8' },
+                                                                              body: { 'lang' => 'Ruby', 'author' => 'Matz' }.to_json
       http.callback {
         EventMachine.stop
       }

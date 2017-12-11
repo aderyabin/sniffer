@@ -2,7 +2,9 @@
 
 module Sniffer
   module Adapters
+    # Em-Http-Connection Adapter
     module EventMachineAdapter
+      # Overrides
       module Client
         def self.included(base)
           base.class_eval do
@@ -15,6 +17,7 @@ module Sniffer
           end
         end
 
+        # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def send_request_with_sniffer(head, body)
           if Sniffer.enabled?
             @data_item = Sniffer::DataItem.new
@@ -32,6 +35,7 @@ module Sniffer
 
           send_request_without_sniffer(head, body)
         end
+        # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
         def parse_response_header_with_sniffer(header, version, status)
           if Sniffer.enabled?
