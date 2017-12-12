@@ -45,11 +45,11 @@ Or install it yourself as:
 Sniffer default options:
 
 ```ruby
-Sniffer.config do
-  logger: Logger.new($stdout),
-  severity: Logger::Severity::DEBUG,
+Sniffer.config do |c|
+  c.logger = Logger.new($stdout),
+  c.severity = Logger::Severity::DEBUG,
   # HTTP options to log
-  log: {
+  c.log = {
     request_url: true,
     request_headers: true,
     request_body: true,
@@ -59,8 +59,8 @@ Sniffer.config do
     response_body: true,
     timing: true
   },
-  store: true, # save requests/responses to Sniffer.data
-  enabled: false  # Sniffer disabled by default
+  c.store =  true, # save requests/responses to Sniffer.data
+  c.enabled = false  # Sniffer disabled by default
 end
 ```
 
