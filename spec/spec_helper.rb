@@ -13,6 +13,7 @@ require "curl"
 require "typhoeus"
 require "ethon"
 require "em-http-request"
+require "excon"
 
 require "sniffer"
 require "pry-byebug"
@@ -34,6 +35,10 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:all) do
+    sleep(1)
   end
 
   config.before(:each) do
