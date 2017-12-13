@@ -9,14 +9,36 @@ require_relative "sniffer/data"
 
 # Sniffer allows to log http requests
 module Sniffer
-  extend Forwardable
-  def_delegator :current, :config, :enable!, :disable!, :enabled?, :clear!, :reset!, :data, :store, :logger, :configure
   class << self
+    extend Forwardable
     def current
-      Thread.current[:sniffer] ||= Controller.new
+      stack.last
+    end
+    def_delegators :current, :config, :enable!, :disable!, :enabled?,
+                   :clear!, :reset!, :data, :store, :logger, :configure
+
+    def capture(config = nil)
+      controller = Controller.new(config)
+      stack.push(controller)
+      yield if block_given?
+      controller
+    ensure
+      stack.pop
+    end
+
+    private
+
+    def stack
+      Thread.current[:stack] ||= [Controller.new]
     end
   end
+
+  # Holds all the sniffer logic
   class Controller
+    def initialize(config = nil)
+      @config = config || Config.new
+    end
+
     def config
       @config ||= Config.new
       yield @config if block_given?
@@ -60,6 +82,8 @@ module Sniffer
       config.logger
     end
   end
+
+  private_constant :Controller
 end
 
 require_relative "sniffer/adapters/net_http_adapter"

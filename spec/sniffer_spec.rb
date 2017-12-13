@@ -98,4 +98,19 @@ RSpec.describe Sniffer do
       end.join
     end.not_to change { Sniffer.enabled? }
   end
+
+  context 'capture' do
+    it do
+      item = Sniffer::DataItem.new
+      Sniffer.data.push(item)
+
+      captured_item = Sniffer::DataItem.new
+      captured = Sniffer.capture do
+        Sniffer.data.push(captured_item)
+      end
+
+      expect(Sniffer.data).to eq [item]
+      expect(captured.data).to eq [captured_item]
+    end
+  end
 end
