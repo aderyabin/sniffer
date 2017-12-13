@@ -17,11 +17,11 @@ module Sniffer
     end
 
     def log
-      Sniffer.logger.log(Sniffer.config.severity, to_json)
+      Sniffer.current.logger.log(Sniffer.current.config.severity, to_json)
     end
 
     def to_log
-      return {} unless Sniffer.config.logger
+      return {} unless Sniffer.current.config.logger
       request.to_log.merge(response.to_log)
     end
 
@@ -38,7 +38,7 @@ module Sniffer
       end
 
       def log_settings
-        Sniffer.config.log || {}
+        Sniffer.current.config.log || {}
       end
     end
 

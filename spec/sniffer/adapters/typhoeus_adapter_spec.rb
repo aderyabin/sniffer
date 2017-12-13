@@ -22,7 +22,7 @@ RSpec.describe Typhoeus do
 
   it 'logs', enabled: true do
     logger = double
-    Sniffer.config.logger = logger
+    Sniffer.current.config.logger = logger
     expect(logger).to receive(:log).with(0, "{\"port\":4567,\"host\":\"localhost\",\"query\":\"/?lang=ruby&author=matz\",\"rq_user_agent\":\"Ruby\",\"rq_accept_encoding\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\",\"rq_accept\":\"*/*\",\"rq_host\":\"localhost:4567\",\"rq_expect\":\"\",\"method\":\"GET\",\"request_body\":\"\",\"status\":200,\"rs_content_type\":\"text/html;charset=utf-8\",\"rs_x_xss_protection\":\"1; mode=block\",\"rs_x_content_type_options\":\"nosniff\",\"rs_x_frame_options\":\"SAMEORIGIN\",\"rs_content_length\":\"2\",\"timing\":0.0006,\"response_body\":\"OK\"}")
     get_request
   end

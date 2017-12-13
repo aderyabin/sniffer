@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples "a sniffered" do |fldr|
-  let(:data_first_item) { Sniffer.data.first }
+  let(:data_first_item) { Sniffer.current.data.first }
 
   it 'stores request if enabled', enabled: true do
     get_request
-    expect(Sniffer.data).to_not be_empty
+    expect(Sniffer.current.data).to_not be_empty
   end
 
   it 'stores GET request correctly', enabled: true do
@@ -31,12 +31,12 @@ RSpec.shared_examples "a sniffered" do |fldr|
 
   it 'not stores request if disabled' do
     get_request
-    expect(Sniffer.data).to be_empty
+    expect(Sniffer.current.data).to be_empty
   end
 
   it 'not stores if storage disabled', enabled: true do
-    Sniffer.config.store = false
+    Sniffer.current.config.store = false
     get_request
-    expect(Sniffer.data).to be_empty
+    expect(Sniffer.current.data).to be_empty
   end
 end

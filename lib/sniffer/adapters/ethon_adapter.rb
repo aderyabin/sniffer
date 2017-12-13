@@ -15,7 +15,7 @@ module Sniffer
 
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def http_request_with_sniffer(url, action_name, options = {})
-          if Sniffer.enabled?
+          if Sniffer.current.enabled?
             @data_item = Sniffer::DataItem.new
             uri = URI("http://" + url)
 
@@ -25,7 +25,7 @@ module Sniffer
                                                                 headers: options[:headers].to_h,
                                                                 body: options[:body].to_s)
 
-            Sniffer.store(@data_item)
+            Sniffer.current.store(@data_item)
           end
 
           http_request_without_sniffer(url, action_name, options)
@@ -48,7 +48,7 @@ module Sniffer
             @return_code = Ethon::Curl.easy_perform(handle)
           end
 
-          if Sniffer.enabled?
+          if Sniffer.current.enabled?
             uri = URI("http://" + @url)
             query = uri.path
             query += "?#{uri.query}" if uri.query

@@ -30,7 +30,7 @@ module Sniffer
     end
 
     def config
-      sniffer.config
+      Sniffer.current.config
     end
   end
 end

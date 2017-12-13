@@ -9,12 +9,12 @@ RSpec.describe Sniffer::DataItem do
 
   context "#to_log"
   it 'returns {} if logger disabled' do
-    Sniffer.config.logger = false
+    Sniffer.current.config.logger = false
     expect(subject.to_log).to eq({})
   end
 
   it 'returns {} if logger is nil' do
-    Sniffer.config.logger = nil
+    Sniffer.current.config.logger = nil
     expect(subject.to_log).to eq({})
   end
 end

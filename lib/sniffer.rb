@@ -10,6 +10,11 @@ require_relative "sniffer/data"
 # Sniffer allows to log http requests
 module Sniffer
   class << self
+    def current
+      @instance ||= Controller.new
+    end
+  end
+  class Controller
     def config
       @config ||= Config.new
       yield @config if block_given?

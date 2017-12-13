@@ -15,7 +15,7 @@ module Sniffer
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def do_get_block_with_sniffer(req, proxy, conn, &block)
-        if Sniffer.enabled?
+        if Sniffer.current.enabled?
           data_item = Sniffer::DataItem.new
           data_item.request = Sniffer::DataItem::Request.new(host: req.header.request_uri.host,
                                                              query: req.header.create_query_uri,
@@ -24,7 +24,7 @@ module Sniffer
                                                              body: req.body,
                                                              port: req.header.request_uri.port)
 
-          Sniffer.store(data_item)
+          Sniffer.current.store(data_item)
         end
 
         retryable_response = nil
@@ -37,7 +37,7 @@ module Sniffer
           end
         end
 
-        if Sniffer.enabled?
+        if Sniffer.current.enabled?
           res = conn.pop
           data_item.response = Sniffer::DataItem::Response.new(status: res.status_code.to_i,
                                                                headers: res.headers,
