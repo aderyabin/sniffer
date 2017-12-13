@@ -13,7 +13,7 @@ module Sniffer
 
       # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
       def request_with_sniffer(action_name, url, headers, options = {})
-        if Sniffer.current.enabled?
+        if Sniffer.enabled?
           data_item = Sniffer::DataItem.new
           uri = URI(base_url)
           data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
@@ -23,14 +23,14 @@ module Sniffer
                                                              body: options[:data].to_s,
                                                              port: uri.port)
 
-          Sniffer.current.store(data_item)
+          Sniffer.store(data_item)
         end
 
         bm = Benchmark.realtime do
           @res = request_without_sniffer(action_name, url, headers, options)
         end
 
-        if Sniffer.current.enabled?
+        if Sniffer.enabled?
           data_item.response = Sniffer::DataItem::Response.new(status: @res.status,
                                                                headers: @res.headers,
                                                                body: @res.body.to_s,

@@ -43,7 +43,7 @@ module Sniffer
       private
 
       def data_item
-        @data_item ||= Sniffer::DataItem.new if Sniffer.current.enabled?
+        @data_item ||= Sniffer::DataItem.new if Sniffer.enabled?
       end
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -61,7 +61,7 @@ module Sniffer
                                                            body: args.join("&"),
                                                            port: uri.port)
 
-        Sniffer.current.store(data_item)
+        Sniffer.store(data_item)
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

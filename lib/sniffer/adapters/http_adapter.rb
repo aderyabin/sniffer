@@ -30,7 +30,7 @@ module Sniffer
           auto_deflate: opts.feature(:auto_deflate)
         )
 
-        if Sniffer.current.enabled?
+        if Sniffer.enabled?
           data_item = Sniffer::DataItem.new
           query = uri.path
           query += "?#{uri.query}" if uri.query
@@ -42,14 +42,14 @@ module Sniffer
                                                              body: body.to_s,
                                                              port: uri.port)
 
-          Sniffer.current.store(data_item)
+          Sniffer.store(data_item)
         end
 
         bm = Benchmark.realtime do
           @res = perform(req, opts)
         end
 
-        if Sniffer.current.enabled?
+        if Sniffer.enabled?
           data_item.response = Sniffer::DataItem::Response.new(status: @res.code,
                                                                headers: @res.headers.collect.to_h,
                                                                body: @res.body.to_s,

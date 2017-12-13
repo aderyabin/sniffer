@@ -17,12 +17,12 @@ RSpec.describe Sniffer::DataItem::Request do
 
   context "#to_log" do
     it 'returns {} if log options is nil' do
-      Sniffer.current.config.log = nil
+      Sniffer.config.log = nil
       expect(subject.to_log).to eq({})
     end
 
     it 'returns nil if log options is {}' do
-      Sniffer.current.config.log = {}
+      Sniffer.config.log = {}
       expect(subject.to_log).to eq({})
     end
 
@@ -31,17 +31,17 @@ RSpec.describe Sniffer::DataItem::Request do
     end
 
     it 'prints correctly if request_url is disabled', enabled: true do
-      Sniffer.current.config.log["request_url"] = false
+      Sniffer.config.log["request_url"] = false
       expect(subject.to_log).to eq("rq_user_agent": "Ruby", method: "GET", request_body: "author=Matz")
     end
 
     it 'prints correctly if request_headers option is disabled', enabled: true do
-      Sniffer.current.config.log["request_headers"] = false
+      Sniffer.config.log["request_headers"] = false
       expect(subject.to_log).to eq(method: "GET", request_body: "author=Matz", host: "evilmartians.com", port: 80, query: nil)
     end
 
     it 'prints correctly if request_body option is disabled', enabled: true do
-      Sniffer.current.config.log["request_body"] = false
+      Sniffer.config.log["request_body"] = false
       expect(subject.to_log).to eq(host: "evilmartians.com", "rq_user_agent": "Ruby", method: "GET", port: 80, query: nil)
     end
   end

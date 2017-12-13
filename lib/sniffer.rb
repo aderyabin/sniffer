@@ -9,9 +9,11 @@ require_relative "sniffer/data"
 
 # Sniffer allows to log http requests
 module Sniffer
+  extend Forwardable
+  def_delegator :current, :config, :enable!, :disable!, :enabled?, :clear!, :reset!, :data, :store, :logger, :configure
   class << self
     def current
-      @instance ||= Controller.new
+      Thread.current[:sniffer] ||= Controller.new
     end
   end
   class Controller
@@ -22,16 +24,15 @@ module Sniffer
     end
 
     def enable!
-      Thread.current[:sniffer] = true
+      config.enabled = true
     end
 
     def disable!
-      Thread.current[:sniffer] = false
+      config.enabled = false
     end
 
     def enabled?
-      Thread.current[:sniffer] = config.enabled if Thread.current[:sniffer].nil?
-      !!Thread.current[:sniffer]
+      config.enabled
     end
 
     def configure
@@ -44,7 +45,6 @@ module Sniffer
 
     def reset!
       @config = Config.new
-      Thread.current[:sniffer] = config.enabled
       clear!
     end
 

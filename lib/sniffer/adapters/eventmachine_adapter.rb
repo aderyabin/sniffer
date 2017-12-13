@@ -19,7 +19,7 @@ module Sniffer
 
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def send_request_with_sniffer(head, body)
-          if Sniffer.current.enabled?
+          if Sniffer.enabled?
             @data_item = Sniffer::DataItem.new
             @data_item.response = Sniffer::DataItem::Response.new
             @data_item.request = Sniffer::DataItem::Request.new(host: @req.host,
@@ -28,7 +28,7 @@ module Sniffer
                                                                 headers: @req.headers,
                                                                 body: @req.body.to_s,
                                                                 port: @req.port)
-            Sniffer.current.store(@data_item)
+            Sniffer.store(@data_item)
 
             @start_time = Time.now
           end
@@ -38,7 +38,7 @@ module Sniffer
         # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
         def parse_response_header_with_sniffer(header, version, status)
-          if Sniffer.current.enabled?
+          if Sniffer.enabled?
             @data_item.response.timing = Time.now - @start_time
             @data_item.response.status = status
             @data_item.response.headers = header
@@ -48,7 +48,7 @@ module Sniffer
         end
 
         def on_body_data_with_sniffer(data)
-          if Sniffer.current.enabled?
+          if Sniffer.enabled?
             @data_item.response.body = data
             @data_item.log
           end
