@@ -44,7 +44,7 @@ module Sniffer
     end
 
     def data
-      @data ||= Sniffer::Data.new
+      @data ||= Sniffer::Data.new(self)
     end
 
     def store(data_item)
