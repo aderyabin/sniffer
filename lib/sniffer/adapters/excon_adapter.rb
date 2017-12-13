@@ -17,7 +17,6 @@ module Sniffer
         def request_call(params)
           if Sniffer.enabled?
             data_item = Sniffer::DataItem.new
-
             data_item.request = Sniffer::DataItem::Request.new(host: params[:host],
                                                                method: params[:method],
                                                                query: ::Excon::Utils.query_string(params),
