@@ -38,7 +38,7 @@ RSpec.configure do |config|
   end
 
   config.before(:all) do
-    sleep(1)
+    sleep(1) # HACK: wait a little for fake server start
   end
 
   config.before(:each) do

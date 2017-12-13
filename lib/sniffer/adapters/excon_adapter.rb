@@ -7,8 +7,8 @@ module Sniffer
         base.class_eval do
           middlewares = ::Excon.defaults[:middlewares]
 
-          middlewares << Sniffer::Adapters::ExconAdapter::Request
           response_parser_index = middlewares.index(::Excon::Middleware::ResponseParser)
+          middlewares.insert(response_parser_index - 1, Sniffer::Adapters::ExconAdapter::Request)
           middlewares.insert(response_parser_index + 1, Sniffer::Adapters::ExconAdapter::Response)
         end
       end
@@ -17,11 +17,12 @@ module Sniffer
         def request_call(params)
           if Sniffer.enabled?
             data_item = Sniffer::DataItem.new
+
             data_item.request = Sniffer::DataItem::Request.new(host: params[:host],
                                                                method: params[:method],
-                                                               query: params[:query],
+                                                               query: ::Excon::Utils.query_string(params),
                                                                headers: params[:headers],
-                                                               body: params[:body],
+                                                               body: params[:body].to_s,
                                                                port: params[:port])
 
             Sniffer.store(data_item)
@@ -40,9 +41,10 @@ module Sniffer
             data_item.response = Sniffer::DataItem::Response.new(status: response[:status],
                                                                  headers: response[:headers],
                                                                  body: response[:body],
-                                                                 timing: 'fake') # TODO: think abount timing
+                                                                 timing: 'fake') # TODO: think about timing
 
             Sniffer.store(data_item)
+            data_item.log
           end
 
           super(params)

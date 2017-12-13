@@ -1,0 +1,20 @@
+---
+:request:
+  :host: "localhost"
+  :port: 4567
+  :query: ""
+  :headers:
+    content-type: application/json; charset=UTF-8
+    host: localhost:4567
+    content-length: 31
+  :body: '{"lang":"Ruby","author":"Matz"}'
+  :method: :post
+  :port: 4567
+:response:
+  :status: 200
+  :headers:
+    content-type: text/json
+    x-content-type-options: nosniff
+    content-length: '15'
+  :body: '{"status":"OK"}'
+  :timing: 0.0006
