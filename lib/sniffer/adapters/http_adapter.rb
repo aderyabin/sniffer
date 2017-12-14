@@ -55,7 +55,7 @@ module Sniffer
                                                                body: @res.body.to_s,
                                                                timing: bm)
 
-          data_item.log
+          Sniffer.log(data_item)
         end
 
         return @res unless opts.follow

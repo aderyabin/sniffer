@@ -11,36 +11,57 @@ require_relative "sniffer/data"
 module Sniffer
   class << self
     extend Forwardable
-    def current
-      stack.last
-    end
-    def_delegators :current, :config, :enable!, :disable!, :enabled?,
-                   :clear!, :reset!, :data, :store, :logger, :configure
 
-    def capture(config = nil)
-      controller = Controller.new(config)
-      stack.push(controller)
+    def capture(options = {})
+      # TODO: make Anyway config to support creation with hash
+      config = Sniffer::Config.new
+      { enabled: true }.merge!(options).each do |k, v|
+        config.send("#{k}=", v)
+      end
+      sniffer = Instance.new(config)
+      sniffers.push(sniffer)
       yield if block_given?
-      controller
+      sniffer
     ensure
-      stack.pop
+      sniffers.pop
+    end
+
+    def enabled?
+      sniffers.any?(&:enabled?)
+    end
+
+    def store(data_item)
+      sniffers.each do |sniffer|
+        sniffer.store(data_item) if sniffer.enabled?
+      end
+    end
+
+    def log(data_item)
+      sniffers.each do |sniffer|
+        next if !sniffer.enabled? || sniffer.logger.nil?
+        sniffer.logger.log(sniffer.config.severity, data_item.to_json)
+      end
     end
 
     private
 
-    def stack
-      Thread.current[:stack] ||= [Controller.new]
+    def default
+      sniffers.first
+    end
+    def_delegators :default, :config, :enable!, :disable!, :clear!, :reset!, :data
+
+    def sniffers
+      Thread.current[:sniffers] ||= [Instance.new]
     end
   end
 
   # Holds all the sniffer logic
-  class Controller
-    def initialize(config = nil)
-      @config = config || Config.new
+  class Instance
+    def initialize(config = Config.new)
+      @config = config
     end
 
     def config
-      @config ||= Config.new
       yield @config if block_given?
       @config
     end
@@ -83,7 +104,7 @@ module Sniffer
     end
   end
 
-  private_constant :Controller
+  private_constant :Instance
 end
 
 require_relative "sniffer/adapters/net_http_adapter"

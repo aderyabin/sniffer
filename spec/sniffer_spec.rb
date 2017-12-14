@@ -31,14 +31,14 @@ RSpec.describe Sniffer do
   end
 
   describe ".store" do
-    it 'stores data items' do
+    it 'stores data items', enabled: true do
       data_item = Sniffer::DataItem.new
       expect {
         Sniffer.store(data_item)
       }.to change { Sniffer.data.include?(data_item) }.to(true)
     end
 
-    it 'stores no more than capacity if set (and rotate by default)' do
+    it 'stores no more than capacity if set (and rotate by default)', enabled: true do
       Sniffer.config.store = { capacity: 1 }
 
       first = Sniffer::DataItem.new
@@ -51,7 +51,7 @@ RSpec.describe Sniffer do
       expect(Sniffer.data.include?(second)).to be_truthy
     end
 
-    it 'do not stores data without rotation' do
+    it 'do not stores data without rotation', enabled: true do
       Sniffer.config.store = { capacity: 1, rotate: false }
 
       first = Sniffer::DataItem.new
@@ -65,7 +65,7 @@ RSpec.describe Sniffer do
   end
 
   context ".clear!" do
-    it 'clears data' do
+    it 'clears data', enabled: true do
       Sniffer.store(Sniffer::DataItem.new)
 
       expect {
@@ -99,18 +99,24 @@ RSpec.describe Sniffer do
     end.not_to change { Sniffer.enabled? }
   end
 
-  context 'capture' do
+  context 'capture', enabled: true do
     it do
       item = Sniffer::DataItem.new
       Sniffer.data.push(item)
 
       captured_item = Sniffer::DataItem.new
+      nested_captured_item = Sniffer::DataItem.new
+      nested = nil
       captured = Sniffer.capture do
-        Sniffer.data.push(captured_item)
+        Sniffer.store(captured_item)
+        nested = Sniffer.capture do
+          Sniffer.store(nested_captured_item)
+        end
       end
 
-      expect(Sniffer.data).to eq [item]
-      expect(captured.data).to eq [captured_item]
+      expect(Sniffer.data).to eq [item, captured_item, nested_captured_item]
+      expect(captured.data).to eq [captured_item, nested_captured_item]
+      expect(nested.data).to eq [nested_captured_item]
     end
   end
 end

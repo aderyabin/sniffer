@@ -16,13 +16,8 @@ module Sniffer
       }
     end
 
-    def log
-      Sniffer.logger.log(Sniffer.config.severity, to_json)
-    end
-
     def to_log
-      return {} unless Sniffer.config.logger
-      request.to_log.merge(response.to_log)
+      (request.nil? ? {} : request.to_log).merge(response.nil? ? {} : response.to_log)
     end
 
     def to_json
@@ -66,7 +61,7 @@ module Sniffer
             hash[:query] = query
           end
 
-          if log_settings["request_headers"]
+          if log_settings["request_headers"] && headers
             headers.each do |(k, v)|
               hash[:"rq_#{k.to_s.tr("-", '_').downcase}"] = v
             end
@@ -97,7 +92,7 @@ module Sniffer
         {}.tap do |hash|
           hash[:status] = status if log_settings["response_status"]
 
-          if log_settings["response_headers"]
+          if log_settings["response_headers"] && headers
             headers.each do |(k, v)|
               hash[:"rs_#{k.to_s.tr("-", '_').downcase}"] = v
             end

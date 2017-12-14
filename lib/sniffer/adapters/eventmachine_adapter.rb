@@ -50,7 +50,7 @@ module Sniffer
         def on_body_data_with_sniffer(data)
           if Sniffer.enabled?
             @data_item.response.body = data
-            @data_item.log
+            Sniffer.log(@data_item)
           end
 
           on_body_data_without_sniffer(data)
