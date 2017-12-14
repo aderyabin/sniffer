@@ -25,6 +25,7 @@ RSpec.shared_examples "a sniffered" do |fldr|
   end
 
   it 'stores JSON correctly', enabled: true do
+    skip "Not implemented in adapter" unless respond_to?(:post_json)
     post_json
     expect(data_first_item.to_h).to match_yaml_file("#{fldr}/json_response")
   end

@@ -65,6 +65,7 @@ module Sniffer
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       def sniffer_response(timing)
         return unless data_item
 
