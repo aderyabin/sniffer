@@ -14,7 +14,6 @@ module Sniffer
         end
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def http_with_sniffer(verb)
         sniffer_request(verb)
 
@@ -47,6 +46,7 @@ module Sniffer
         @data_item ||= Sniffer::DataItem.new if Sniffer.enabled?
       end
 
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def sniffer_request(verb, *args)
         return unless data_item
 
@@ -63,6 +63,7 @@ module Sniffer
 
         Sniffer.store(data_item)
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def sniffer_response(timing)
         return unless data_item

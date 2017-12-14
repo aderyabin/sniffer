@@ -60,6 +60,4 @@ module Sniffer
   end
 end
 
-if defined?(::EventMachine)
-  EventMachine::HttpClient.send(:include, Sniffer::Adapters::EventMachineAdapter::Client)
-end
+EventMachine::HttpClient.send(:include, Sniffer::Adapters::EventMachineAdapter::Client) if defined?(::EventMachine)

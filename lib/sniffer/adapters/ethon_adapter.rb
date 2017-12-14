@@ -70,9 +70,7 @@ module Sniffer
 
           end
 
-          if Ethon.logger.debug?
-            Ethon.logger.debug { "ETHON: performed #{log_inspect}" }
-          end
+          Ethon.logger.debug { "ETHON: performed #{log_inspect}" } if Ethon.logger.debug?
           complete
 
           @return_code
