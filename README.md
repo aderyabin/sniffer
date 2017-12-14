@@ -1,6 +1,6 @@
-# Sniffer [![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer)
+# Sniffer
 
-[![Join the chat at https://gitter.im/aderyabin/sniffer](https://badges.gitter.im/aderyabin/sniffer.svg)](https://gitter.im/aderyabin/sniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Join the chat at https://gitter.im/aderyabin/sniffer](https://badges.gitter.im/aderyabin/sniffer.svg)](https://gitter.im/aderyabin/sniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Sniffer aims to help:
 
