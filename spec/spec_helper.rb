@@ -41,8 +41,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each, when_enabled) do
-    Sniffer.reset!
-    Sniffer.enable!
     allow_any_instance_of(Sniffer::DataItem::Response).to receive(:timing).and_return(0.0006)
   end
 end

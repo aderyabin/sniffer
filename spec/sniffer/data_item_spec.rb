@@ -8,10 +8,11 @@ RSpec.describe Sniffer::DataItem do
   end
 
   context "#to_log" do
+    let(:sniffer) { Sniffer.new }
     it 'returns {} if logger disabled' do
       subject.request = Sniffer::DataItem::Request.new
       subject.response = Sniffer::DataItem::Response.new
-      expect(subject.to_log).to(
+      expect(sniffer.logify_data_item(subject)).to(
         eq(
           port: nil,
           host: nil,
@@ -26,7 +27,7 @@ RSpec.describe Sniffer::DataItem do
     end
 
     it 'returns {} if request and response are nil' do
-      expect(subject.to_log).to eq({})
+      expect(sniffer.logify_data_item(subject)).to eq({})
     end
   end
 end
