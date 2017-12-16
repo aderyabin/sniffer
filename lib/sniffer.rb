@@ -3,107 +3,59 @@
 require "logger"
 
 require_relative "sniffer/version"
+require_relative "sniffer/capture"
 require_relative "sniffer/config"
-require_relative "sniffer/data_item"
-require_relative "sniffer/data"
-require_relative "sniffer/data_item_logger"
 
 # Sniffer allows to log http requests
 module Sniffer
   class << self
     def new(options = {})
-      raise ArgumentError, "Only one Capture of sniffer is allowed" unless sniffers.empty?
-      sniffer = Capture.new(Sniffer::Config.new(config: options))
-      sniffers.push(sniffer)
-      sniffer
+      raise ArgumentError, "Only one instance is allowed" unless captures.empty?
+      capture = Capture.new(Sniffer::Config.new(config: options))
+      captures.push(capture)
+      capture
     end
 
     def capture(options = {})
-      sniffer = Capture.new(Sniffer::Config.new(config: options))
-      sniffers.push(sniffer)
+      capture = Capture.new(Sniffer::Config.new(config: options))
+      captures.push(capture)
       yield if block_given?
-      sniffer
+      capture
     ensure
-      sniffers.pop
+      captures.pop
     end
 
     def enabled?
-      sniffers.any?(&:enabled?)
+      captures.any?(&:enabled?)
     end
 
     def store(data_item)
-      sniffers.each do |sniffer|
-        sniffer.store(data_item) if sniffer.enabled?
+      captures.each do |capture|
+        capture.store(data_item) if capture.enabled?
       end
     end
 
     def log(data_item)
-      sniffers.each do |sniffer|
-        next unless sniffer.enabled?
-        sniffer.logger.log(data_item)
+      captures.each do |capture|
+        next unless capture.enabled?
+        capture.logger.log(data_item)
       end
     end
 
     def reset!
-      sniffers.clear
+      captures.clear
     end
 
     private
 
     def default
-      sniffers.first
+      captures.first
     end
 
-    def sniffers
-      Thread.current[:sniffers] ||= []
-    end
-  end
-
-  # Holds all the sniffer logic
-  class Capture
-    def initialize(config)
-      @config = config
-    end
-
-    def config
-      yield @config if block_given?
-      @config
-    end
-
-    def enable!
-      config.enabled = true
-    end
-
-    def disable!
-      config.enabled = false
-    end
-
-    def enabled?
-      config.enabled
-    end
-
-    def configure
-      yield(config) if block_given?
-    end
-
-    def clear!
-      data.clear
-    end
-
-    def data
-      @data ||= Sniffer::Data.new(self)
-    end
-
-    def store(data_item)
-      data.store(data_item)
-    end
-
-    def logger
-      @logger ||= DataItemLogger.new(config)
+    def captures
+      Thread.current[:captures] ||= []
     end
   end
-
-  private_constant :Capture
 end
 
 require_relative "sniffer/adapters/net_http_adapter"

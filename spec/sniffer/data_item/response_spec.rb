@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe Sniffer::DataItem::Response do
-  let(:sniffer) { Sniffer.new }
   subject do
     described_class.new(
       headers: { 'user-agent': 'Ruby' },
