@@ -108,26 +108,42 @@ RSpec.describe Sniffer do
     end.not_to change { Sniffer.enabled? }
   end
 
-  context 'capture' do
-    it do
-      sniffer = Sniffer.new(enabled: true)
+  context '.capture' do
+    let(:capture) { Sniffer.new(enabled: true) }
+
+    it 'captures data' do
+      item = Sniffer::DataItem.new
+      capture = Sniffer.capture(enabled: true) do
+        Sniffer.store(item)
+      end
+
+      expect(capture.data).to eq [item]
+    end
+
+    it 'captures data to default capture too' do
+      capture
 
       item = Sniffer::DataItem.new
-      Sniffer.store(item)
-
-      captured_item = Sniffer::DataItem.new
-      nested_captured_item = Sniffer::DataItem.new
-      nested = nil
       captured = Sniffer.capture(enabled: true) do
-        Sniffer.store(captured_item)
-        nested = Sniffer.capture(enabled: true) do
-          Sniffer.store(nested_captured_item)
+        Sniffer.store(item)
+      end
+
+      expect(capture.data).to eq [item]
+      expect(captured.data).to eq [item]
+    end
+
+    it 'captures with nesting' do
+      item = Sniffer::DataItem.new
+
+      nested_capture = nil
+      capture = Sniffer.capture(enabled: true) do
+        nested_capture = Sniffer.capture(enabled: true) do
+          Sniffer.store(item)
         end
       end
 
-      expect(sniffer.data).to eq [item, captured_item, nested_captured_item]
-      expect(captured.data).to eq [captured_item, nested_captured_item]
-      expect(nested.data).to eq [nested_captured_item]
+      expect(capture.data).to eq [item]
+      expect(nested_capture.data).to eq [item]
     end
   end
 end
