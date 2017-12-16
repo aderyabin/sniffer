@@ -37,7 +37,7 @@ RSpec.describe 'Sniffer::Capture' do
     end
 
     it 'stores no more than capacity if set (and rotate by default)' do
-      capture = Sniffer.new(store: {capacity: 1})
+      capture = Sniffer.new(store: { capacity: 1 })
 
       first = Sniffer::DataItem.new
       capture.store(first)

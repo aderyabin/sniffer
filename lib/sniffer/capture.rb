@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require "sniffer"
 require_relative "data_item"
 require_relative "data"
 require_relative "data_item_logger"
 
+# Sniffer allows to log http requests
 module Sniffer
   # Holds all the sniffer logic
   class Capture
