@@ -61,7 +61,6 @@ module Sniffer
 
   # Holds all the sniffer logic
   class Capture
-    attr_reader :config
     def initialize(config)
       @config = config
     end

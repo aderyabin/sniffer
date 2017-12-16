@@ -34,7 +34,7 @@ RSpec.describe Sniffer do
   end
 
   describe ".store" do
-    it 'stores data items', enabled: true do
+    it 'stores data items' do
       sniffer = Sniffer.new
       data_item = Sniffer::DataItem.new
       expect {
@@ -42,7 +42,7 @@ RSpec.describe Sniffer do
       }.to change { sniffer.data.include?(data_item) }.to(true)
     end
 
-    it 'stores no more than capacity if set (and rotate by default)', enabled: true do
+    it 'stores no more than capacity if set (and rotate by default)' do
       sniffer = Sniffer.new
       sniffer.config.store = { capacity: 1 }
 
@@ -56,7 +56,7 @@ RSpec.describe Sniffer do
       expect(sniffer.data.include?(second)).to be_truthy
     end
 
-    it 'do not stores data without rotation', enabled: true do
+    it 'do not stores data without rotation' do
       sniffer = Sniffer.new
       sniffer.config.store = { capacity: 1, rotate: false }
 
@@ -72,7 +72,7 @@ RSpec.describe Sniffer do
 
   context ".clear!" do
     sniffer = Sniffer.new
-    it 'clears data', enabled: true do
+    it 'clears data' do
       sniffer.store(Sniffer::DataItem.new)
 
       expect {

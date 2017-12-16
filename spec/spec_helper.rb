@@ -19,7 +19,7 @@ require "pry-byebug"
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))].each { |f| require f }
 
-when_enabled = { enabled: ->(v) { v } }
+when_adapter = { adapter: ->(v) { v } }
 
 @server_thread = Thread.new do
   FakeWeb::App.run!
@@ -40,7 +40,7 @@ RSpec.configure do |config|
     Sniffer.reset!
   end
 
-  config.before(:each, when_enabled) do
+  config.before(:each, when_adapter) do
     allow_any_instance_of(Sniffer::DataItem::Response).to receive(:timing).and_return(0.0006)
   end
 end
