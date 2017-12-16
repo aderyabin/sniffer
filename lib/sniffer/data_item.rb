@@ -9,6 +9,11 @@ module Sniffer
     include ActiveAttr::MassAssignment
     attr_accessor :request, :response
 
+    def initialize(request: nil, response: nil)
+      @request = request
+      @response = response
+    end
+
     def to_h
       {
         request: request && request.to_h,
