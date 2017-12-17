@@ -13,6 +13,7 @@ require "curl"
 require "typhoeus"
 require "ethon"
 require "em-http-request"
+require "excon"
 
 require "sniffer"
 require "pry-byebug"

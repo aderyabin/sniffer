@@ -36,4 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "ethon", ">= 0.11.0"
   spec.add_development_dependency "typhoeus", ">= 0.9.0"
   spec.add_development_dependency "em-http-request", ">= 1.1.0"
+  spec.add_development_dependency "excon", ">= 0.60.0"
 end
