@@ -68,5 +68,6 @@ module Sniffer
         hash[:response_body] = response.body if log_settings["response_body"]
       end
     end
+    # rubocop:enable Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/AbcSize
   end
 end

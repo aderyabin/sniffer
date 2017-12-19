@@ -78,6 +78,7 @@ module Sniffer
 
         Sniffer.log(data_item)
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
   end
 end

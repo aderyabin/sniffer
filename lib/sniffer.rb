@@ -11,13 +11,13 @@ module Sniffer
   class << self
     def new(options = {})
       raise ArgumentError, "Only one instance is allowed" unless captures.empty?
-      capture = Capture.new(Sniffer::Config.new(config: options))
+      capture = Capture.new(Sniffer::Config.new(explicit_values: options))
       captures.push(capture)
       capture
     end
 
     def capture(options = {})
-      capture = Capture.new(Sniffer::Config.new(config: options))
+      capture = Capture.new(Sniffer::Config.new(explicit_values: options))
       captures.push(capture)
       yield if block_given?
       capture
