@@ -32,7 +32,7 @@ module Sniffer
         )
     end
 
-    # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
     def logify_request(request)
       return {} if request.nil?
       {}.tap do |hash|
@@ -42,11 +42,7 @@ module Sniffer
           hash[:query] = request.query
         end
 
-        if log_settings["request_headers"] && request.headers
-          request.headers.each do |(k, v)|
-            hash[:"rq_#{k.to_s.tr("-", '_').downcase}"] = v
-          end
-        end
+        append_request_headers(hash, request.headers)
 
         hash[:method] = request.method if log_settings["request_method"]
         hash[:request_body] = request.body if log_settings["request_body"]
@@ -57,17 +53,27 @@ module Sniffer
       return {} if response.nil?
       {}.tap do |hash|
         hash[:status] = response.status if log_settings["response_status"]
-
-        if log_settings["response_headers"] && response.headers
-          response.headers.each do |(k, v)|
-            hash[:"rs_#{k.to_s.tr("-", '_').downcase}"] = v
-          end
-        end
-
+        append_response_headers(hash, response.headers)
         hash[:timing] = response.timing if log_settings["timing"]
         hash[:response_body] = response.body if log_settings["response_body"]
       end
     end
     # rubocop:enable Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/AbcSize
+
+    def append_request_headers(hash, headers)
+      return if !log_settings["request_headers"] || headers.nil?
+
+      headers.each do |(k, v)|
+        hash[:"rq_#{k.to_s.tr("-", '_').downcase}"] = v
+      end
+    end
+
+    def append_response_headers(hash, headers)
+      return if !log_settings["response_headers"] || headers.nil?
+
+      headers.each do |(k, v)|
+        hash[:"rs_#{k.to_s.tr("-", '_').downcase}"] = v
+      end
+    end
   end
 end
