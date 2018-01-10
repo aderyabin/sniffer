@@ -49,8 +49,8 @@ Sniffer default options:
 
 ```ruby
 Sniffer.config do |c|
-  c.logger = Logger.new($stdout),
-  c.severity = Logger::Severity::DEBUG,
+  c.logger = Logger.new($stdout)
+  c.severity = Logger::Severity::DEBUG
   # HTTP options to log
   c.log = {
     request_url: true,
@@ -61,8 +61,8 @@ Sniffer.config do |c|
     response_headers: true,
     response_body: true,
     timing: true
-  },
-  c.store =  true, # save requests/responses to Sniffer.data
+  }
+  c.store =  true # save requests/responses to Sniffer.data
   c.enabled = false  # Sniffer disabled by default
 end
 ```
