@@ -66,8 +66,7 @@ module Sniffer
                                                                   headers: hash_headers,
                                                                   body: @response_body,
                                                                   timing: bm)
-            @data_item.log
-
+            Sniffer.log(@data_item)
           end
 
           Ethon.logger.debug { "ETHON: performed #{log_inspect}" } if Ethon.logger.debug?

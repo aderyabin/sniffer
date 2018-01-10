@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Sniffer::Config do
-  subject(:config) { Sniffer.config }
+  subject(:config) { Sniffer::Config.new }
 
   it "loads default values", :aggregate_failures do
     expect(config.log['request_headers']).to be_truthy

@@ -75,10 +75,10 @@ Here's some simple examples to get you started:
 require 'http'
 require 'sniffer'
 
-Sniffer.enable!
+capture = Sniffer.new(enabled: true)
 
 HTTP.get('http://example.com/?lang=ruby&author=matz')
-Sniffer.data[0].to_h
+capture.data[0].to_h
 # => {:request=>
 #   {:host=>"example.com",
 #    :query=>"/?lang=ruby&author=matz",
@@ -108,7 +108,7 @@ Sniffer.data[0].to_h
 You can clear saved data
 
 ```
-Sniffer.clear!
+capture.clear!
 ```
 
 You can configure capacity of storage to prevent the huge memory usage and set up log rotation.
@@ -117,23 +117,24 @@ If rotation is disabled - requests will be logged until result log size reaches 
 
 ```
 # will fill the storage and stop logging
-Sniffer.config.store = {capacity: 1000, rotate: false}
+capture = Sniffer.new(
+  enabled: true,
+  store: {capacity: 1000, rotate: false}
+)
 
 # will rotate logs to fit 1000 results (rotate is true by default)
-Sniffer.config.store = {capacity: 1000}
+capture = Sniffer.new(
+  enabled: true,
+  store: {capacity: 1000}
+)
 ```
 
-You can reset config to default
+You can enable and disable Sniffer's capture
 
 ```
-Sniffer.reset!
-```
-
-You can enable and disable Sniffer
-
-```
-Sniffer.enable!
-Sniffer.disable!
+capture = Sniffer.new(enabled: true)
+capture.enable!
+capture.disable!
 ```
 
 By default output log looks like that:

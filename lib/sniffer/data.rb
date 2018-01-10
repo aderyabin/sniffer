@@ -3,6 +3,11 @@
 module Sniffer
   # Data class stores the data and controls capacity
   class Data < Array
+    attr_reader :sniffer
+    def initialize(sniffer)
+      @sniffer = sniffer
+    end
+
     def store(data_item)
       return unless config.store
 
@@ -25,7 +30,7 @@ module Sniffer
     end
 
     def config
-      Sniffer.config
+      sniffer.config
     end
   end
 end
