@@ -1,3 +1,5 @@
+## 0.3.0 (January 12, 2018) ##
+
 ## 0.2.0 (January 8, 2018) ##
 
 * Added Excon adapter
