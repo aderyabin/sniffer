@@ -193,6 +193,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/aderya
 * [Salahutdinov Dmitry](https://github.com/dsalahutdinov)
 * [Stanislav Chereshkevich](https://github.com/dissident)
 * [Anatoliy Kurichev](https://github.com/russo-matrosso)
+* [Dmitriy Ivliev](https://github.com/moofkit)
 
 ## License
 
