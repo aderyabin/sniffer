@@ -2,6 +2,7 @@
 
 require 'active_attr'
 require 'json'
+require_relative 'request_policy'
 
 module Sniffer
   # Sniffer data item stores a request info
@@ -17,6 +18,7 @@ module Sniffer
     end
 
     def log
+      return unless allowed_to_sniff?
       Sniffer.logger.log(Sniffer.config.severity, to_json)
     end
 
@@ -27,6 +29,11 @@ module Sniffer
 
     def to_json
       to_log.to_json
+    end
+
+    def allowed_to_sniff?
+      return true unless request
+      RequestPolicy.call(request)
     end
 
     # Basic object for request and response objects

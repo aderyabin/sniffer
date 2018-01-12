@@ -16,6 +16,8 @@ RSpec.describe Sniffer::Config do
     expect(config.log['timing']).to be_truthy
     expect(config.store).to be_truthy
     expect(config.enabled).to be_falsey
+    expect(config.url_whitelist).to be(nil)
+    expect(config.url_blacklist).to be(nil)
   end
 
   it 'overrides a value' do

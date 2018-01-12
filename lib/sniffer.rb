@@ -48,7 +48,7 @@ module Sniffer
     end
 
     def store(data_item)
-      data.store(data_item)
+      data.store(data_item) if config.store
     end
 
     def logger
