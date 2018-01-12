@@ -43,30 +43,6 @@ Or install it yourself as:
 
     $ gem install sniffer
 
-## Configuration
-
-Sniffer default options:
-
-```ruby
-Sniffer.config do |c|
-  c.logger = Logger.new($stdout)
-  c.severity = Logger::Severity::DEBUG
-  # HTTP options to log
-  c.log = {
-    request_url: true,
-    request_headers: true,
-    request_body: true,
-    request_method: true,
-    response_status: true,
-    response_headers: true,
-    response_body: true,
-    timing: true
-  }
-  c.store =  true # save requests/responses to Sniffer.data
-  c.enabled = false  # Sniffer disabled by default
-end
-```
-
 ## Usage
 
 Here's some simple examples to get you started:
@@ -143,6 +119,63 @@ D, [2017-10-26T16:47:14.007152 #59511] DEBUG -- : {"port":80,"host":"example.com
 ```
 where `rq_xxx` is request header and `rs_xxx` - response header
 
+## Configuration
+
+Sniffer default options:
+
+```ruby
+Sniffer.config do |c|
+  c.logger = Logger.new($stdout),
+  c.severity = Logger::Severity::DEBUG,
+  # HTTP options to log
+  c.log = {
+    request_url: true,
+    request_headers: true,
+    request_body: true,
+    request_method: true,
+    response_status: true,
+    response_headers: true,
+    response_body: true,
+    timing: true
+  },
+  c.store =  true, # save requests/responses to Sniffer.data
+  c.enabled = false  # Sniffer disabled by default
+  c.url_whitelist = nil
+  c.url_blacklist = nil
+end
+```
+
+### Whitelist
+
+You can add specific host url to whitelist as regexp or string. Sniffer will store only requests that matched.
+
+```ruby
+Sniffer.config.url_whitelist = /whitelisted.com/
+
+HTTP.get('http://example.com')
+Sniffer.data[0].to_h
+# => {}
+
+HTTP.get('http://whitelisted.com/')
+Sniffer.data[0].to_h
+# => {{:request=>{:host=>"whitelisted.com", ....}}
+```
+
+### Blacklist
+
+You can add specific host url to blacklist as regexp or string. Sniffer will ignore all matched requests.
+
+```ruby
+Sniffer.config.url_blacklist = /blacklisted.com/
+
+HTTP.get('http://blacklisted.com')
+Sniffer.data[0].to_h
+# => {}
+
+HTTP.get('http://example.com')
+Sniffer.data[0].to_h
+# => {{:request=>{:host=>"example.com", ...}}
+```
 
 ## Development
 

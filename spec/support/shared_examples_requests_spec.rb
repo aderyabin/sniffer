@@ -29,14 +29,42 @@ RSpec.shared_examples "a sniffered" do |fldr|
     expect(data_first_item.to_h).to match_yaml_file("#{fldr}/json_response")
   end
 
-  it 'not stores request if disabled' do
+  it 'does not store request if disabled' do
     get_request
     expect(Sniffer.data).to be_empty
   end
 
-  it 'not stores if storage disabled', enabled: true do
+  it 'does not store if storage disabled', enabled: true do
     Sniffer.config.store = false
     get_request
     expect(Sniffer.data).to be_empty
+  end
+
+  context 'with url_whitelist', enabled: true do
+    it 'stores data with matched url' do
+      Sniffer.config.url_whitelist = /localhost:4567/
+      get_request
+      expect(Sniffer.data).not_to be_empty
+    end
+
+    it 'does not store requests with different url' do
+      Sniffer.config.url_whitelist = /example.com/
+      get_request
+      expect(Sniffer.data).to be_empty
+    end
+  end
+
+  context 'with url_blacklist', enabled: true do
+    it 'does not store data with matched url' do
+      Sniffer.config.url_blacklist = /localhost:4567/
+      get_request
+      expect(Sniffer.data).to be_empty
+    end
+
+    it 'stores requests with different url' do
+      Sniffer.config.url_blacklist = /example.com/
+      get_request
+      expect(Sniffer.data).not_to be_empty
+    end
   end
 end

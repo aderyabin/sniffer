@@ -20,7 +20,9 @@ module Sniffer
                   timing: true
                 },
                 store: true,
-                enabled: false
+                enabled: false,
+                url_whitelist: nil,
+                url_blacklist: nil
 
     def capacity?
       store.is_a?(Hash) && store.key?(:capacity)
