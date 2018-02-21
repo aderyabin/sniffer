@@ -190,6 +190,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/aderya
 ## Acknowledge
 
 * [Sergey Ponomarev](https://github.com/sponomarev)
+* [Vladimir Dementyev](https://github.com/palkan)
 * [Salahutdinov Dmitry](https://github.com/dsalahutdinov)
 * [Stanislav Chereshkevich](https://github.com/dissident)
 * [Anatoliy Kurichev](https://github.com/russo-matrosso)
