@@ -8,7 +8,7 @@
     user-agent: Ruby
     host: "localhost:4567"
     connection: "close"
-  :body: ""
+  :body:
   :method: :get
   :port: 4567
 :response:
