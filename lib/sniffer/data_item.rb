@@ -59,7 +59,7 @@ module Sniffer
           query: query,
           port: port,
           headers: headers,
-          body: body,
+          body: body && body.to_s,
           method: method
         }
       end
@@ -80,7 +80,7 @@ module Sniffer
           end
 
           hash[:method] = method if log_settings["request_method"]
-          hash[:request_body] = body if log_settings["request_body"]
+          hash[:request_body] = body.to_s if log_settings["request_body"]
         end
       end
     end
@@ -94,7 +94,7 @@ module Sniffer
         {
           status: status,
           headers: headers,
-          body: body,
+          body: body && body.to_s,
           timing: timing
         }
       end
@@ -111,7 +111,7 @@ module Sniffer
           end
 
           hash[:timing] = timing if log_settings["timing"]
-          hash[:response_body] = body if log_settings["response_body"]
+          hash[:response_body] = body.to_s if log_settings["response_body"]
         end
       end
       # rubocop:enable Metrics/AbcSize

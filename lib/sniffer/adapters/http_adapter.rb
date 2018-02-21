@@ -39,7 +39,7 @@ module Sniffer
                                                              method: verb,
                                                              query: query,
                                                              headers: headers.collect.to_h,
-                                                             body: body.to_s,
+                                                             body: body,
                                                              port: uri.port)
 
           Sniffer.store(data_item)
@@ -52,7 +52,7 @@ module Sniffer
         if Sniffer.enabled?
           data_item.response = Sniffer::DataItem::Response.new(status: @res.code,
                                                                headers: @res.headers.collect.to_h,
-                                                               body: @res.body.to_s,
+                                                               body: @res.body,
                                                                timing: bm)
 
           data_item.log
