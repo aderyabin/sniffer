@@ -18,7 +18,7 @@ module Sniffer
     end
 
     def log
-      return unless allowed_to_sniff?
+      return unless Sniffer.logger && allowed_to_sniff?
       Sniffer.logger.log(Sniffer.config.severity, to_json)
     end
 
