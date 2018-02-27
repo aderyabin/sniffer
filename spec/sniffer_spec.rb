@@ -64,7 +64,13 @@ RSpec.describe Sniffer do
     end
   end
 
-  context ".clear!" do
+  describe ".allowed_to_sniff" do
+    it "returns true with empty data" do
+      expect(Sniffer.allowed_to_sniff?(Sniffer::DataItem.new)).to eq(true)
+    end
+  end
+
+  describe ".clear!" do
     it 'clears data' do
       Sniffer.store(Sniffer::DataItem.new)
 

@@ -18,10 +18,4 @@ RSpec.describe Sniffer::DataItem do
       expect(subject.to_log).to eq({})
     end
   end
-
-  context "#allowed_to_sniff?" do
-    it "returns true with empty data" do
-      expect(described_class.new.allowed_to_sniff?).to eq(true)
-    end
-  end
 end

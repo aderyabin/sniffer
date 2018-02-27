@@ -17,23 +17,9 @@ module Sniffer
       }
     end
 
-    def log
-      return unless Sniffer.logger && allowed_to_sniff?
-      Sniffer.logger.log(Sniffer.config.severity, to_json)
-    end
-
     def to_log
       return {} unless Sniffer.config.logger
       request.to_log.merge(response.to_log)
-    end
-
-    def to_json
-      to_log.to_json
-    end
-
-    def allowed_to_sniff?
-      return true unless request
-      RequestPolicy.call(request)
     end
 
     # Basic object for request and response objects

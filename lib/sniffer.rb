@@ -51,6 +51,18 @@ module Sniffer
       data.store(data_item) if config.store
     end
 
+    def log(data_item)
+      return unless logger && allowed_to_sniff?(data_item)
+      logger.log(config.severity, data_item.to_log.to_json)
+    end
+
+    def allowed_to_sniff?(data_item)
+      return true unless data_item.request
+      RequestPolicy.call(data_item.request)
+    end
+
+    private
+
     def logger
       config.logger
     end

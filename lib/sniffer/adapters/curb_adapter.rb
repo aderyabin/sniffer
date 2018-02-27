@@ -76,7 +76,7 @@ module Sniffer
                                                              body: body_str,
                                                              timing: timing)
 
-        data_item.log
+        Sniffer.log(data_item)
       end
     end
   end
