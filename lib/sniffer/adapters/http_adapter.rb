@@ -64,7 +64,7 @@ module Sniffer
           perform(request, opts)
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
   end
 end

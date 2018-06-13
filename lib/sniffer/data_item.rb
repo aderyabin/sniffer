@@ -12,8 +12,8 @@ module Sniffer
 
     def to_h
       {
-        request: request && request.to_h,
-        response: response && response.to_h
+        request: request&.to_h,
+        response: response&.to_h
       }
     end
 
@@ -59,7 +59,7 @@ module Sniffer
           query: query,
           port: port,
           headers: headers,
-          body: body && body.to_s,
+          body: body&.to_s,
           method: method
         }
       end
@@ -94,7 +94,7 @@ module Sniffer
         {
           status: status,
           headers: headers,
-          body: body && body.to_s,
+          body: body&.to_s,
           timing: timing
         }
       end
