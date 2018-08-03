@@ -51,7 +51,7 @@ module Sniffer
 
         raise retryable_response unless retryable_response.nil?
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
     end
   end
 end

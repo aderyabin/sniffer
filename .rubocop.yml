@@ -11,7 +11,7 @@ AllCops:
     - '*.gemspec'
   DisplayCopNames: true
   StyleGuideCopsOnly: false
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.2
 
 Naming/AccessorMethodName:
   Enabled: false
