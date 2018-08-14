@@ -1,6 +1,6 @@
 # Sniffer
 
-[![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Join the chat at https://gitter.im/aderyabin/sniffer](https://badges.gitter.im/aderyabin/sniffer.svg)](https://gitter.im/aderyabin/sniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Backers on Open Collective](https://opencollective.com/sniffer/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/sniffer/sponsors/badge.svg)](#sponsors) [![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Join the chat at https://gitter.im/aderyabin/sniffer](https://badges.gitter.im/aderyabin/sniffer.svg)](https://gitter.im/aderyabin/sniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Sniffer aims to help:
 
@@ -195,6 +195,36 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/aderya
 * [Stanislav Chereshkevich](https://github.com/dissident)
 * [Anatoliy Kurichev](https://github.com/russo-matrosso)
 * [Dmitriy Ivliev](https://github.com/moofkit)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CODE_OF_CONDUCT.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/sniffer/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/sniffer#backer)]
+
+<a href="https://opencollective.com/sniffer#backers" target="_blank"><img src="https://opencollective.com/sniffer/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/sniffer#sponsor)]
+
+<a href="https://opencollective.com/sniffer/sponsor/0/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/1/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/2/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/3/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/4/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/5/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/6/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/7/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/8/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/sniffer/sponsor/9/website" target="_blank"><img src="https://opencollective.com/sniffer/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 
