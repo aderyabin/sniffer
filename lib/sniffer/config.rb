@@ -34,6 +34,7 @@ module Sniffer
 
     def rotate?
       return false unless capacity?
+
       store.fetch(:rotate, true)
     end
   end

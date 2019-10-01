@@ -82,6 +82,6 @@ module Sniffer
 end
 
 if defined?(::Ethon::Easy)
-  Ethon::Easy::Http.send(:include, Sniffer::Adapters::EthonAdapter::Http)
-  Ethon::Easy::Operations.send(:include, Sniffer::Adapters::EthonAdapter::Operations)
+  Ethon::Easy::Http.include Sniffer::Adapters::EthonAdapter::Http
+  Ethon::Easy::Operations.include Sniffer::Adapters::EthonAdapter::Operations
 end
