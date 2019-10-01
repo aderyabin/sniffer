@@ -8,7 +8,8 @@
   :method: :post
   :port: 4567
   :headers:
-    user-agent: excon/0.62.0
+    user-agent: "excon/0.67.0"
+    accept: "*/*"
 :response:
   :status: 201
   :headers:
