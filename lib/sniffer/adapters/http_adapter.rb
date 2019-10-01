@@ -69,4 +69,4 @@ module Sniffer
   end
 end
 
-HTTP::Client.send(:include, Sniffer::Adapters::HTTPAdapter) if defined?(::HTTP::Client)
+HTTP::Client.include Sniffer::Adapters::HTTPAdapter if defined?(::HTTP::Client)

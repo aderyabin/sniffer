@@ -46,4 +46,4 @@ module Sniffer
   end
 end
 
-::Excon::Connection.send(:include, Sniffer::Adapters::ExconAdapter) if defined?(::Excon::Connection)
+::Excon::Connection.include Sniffer::Adapters::ExconAdapter if defined?(::Excon::Connection)

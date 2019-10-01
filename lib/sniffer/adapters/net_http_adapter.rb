@@ -47,4 +47,4 @@ module Sniffer
     end
   end
 end
-Net::HTTP.send(:include, Sniffer::Adapters::NetHttpAdapter)
+Net::HTTP.include Sniffer::Adapters::NetHttpAdapter

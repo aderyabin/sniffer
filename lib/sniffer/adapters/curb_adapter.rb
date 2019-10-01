@@ -82,4 +82,4 @@ module Sniffer
   end
 end
 
-Curl::Easy.send(:include, Sniffer::Adapters::CurlAdapter) if defined?(::Curl::Easy)
+Curl::Easy.include Sniffer::Adapters::CurlAdapter if defined?(::Curl::Easy)

@@ -12,27 +12,44 @@ module Sniffer
 
     def to_h
       {
-        request: request && request.to_h,
-        response: response && response.to_h
+        request: # frozen_string_literal: true
+# Sniffer data item stores a request info
+# Basic object for request and response objects
+# Stores http request data
+# rubocop:enable
+# Stores http response data
+
+request&.to_h,
+        response: # frozen_string_literal: true
+# Sniffer data item stores a request info
+# Basic object for request and response objects
+# Stores http request data
+# rubocop:enable
+# Stores http response data
+
+response&.to_h
       }
     end
 
     def log
       return unless Sniffer.logger && allowed_to_sniff?
+
       Sniffer.logger.log(Sniffer.config.severity, to_json)
     end
 
     def to_log
       return {} unless Sniffer.config.logger
+
       request.to_log.merge(response.to_log)
     end
 
-    def to_json
+    def to_json(*_args)
       to_log.to_json
     end
 
     def allowed_to_sniff?
       return true unless request
+
       RequestPolicy.call(request)
     end
 
@@ -59,7 +76,14 @@ module Sniffer
           query: query,
           port: port,
           headers: headers,
-          body: body && body.to_s,
+          body: # frozen_string_literal: true
+# Sniffer data item stores a request info
+# Basic object for request and response objects
+# Stores http request data
+# rubocop:enable
+# Stores http response data
+
+body&.to_s,
           method: method
         }
       end
@@ -94,7 +118,14 @@ module Sniffer
         {
           status: status,
           headers: headers,
-          body: body && body.to_s,
+          body: # frozen_string_literal: true
+# Sniffer data item stores a request info
+# Basic object for request and response objects
+# Stores http request data
+# rubocop:enable
+# Stores http response data
+
+body&.to_s,
           timing: timing
         }
       end

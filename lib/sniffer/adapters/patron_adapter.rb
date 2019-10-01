@@ -46,4 +46,4 @@ module Sniffer
   end
 end
 
-::Patron::Session.send(:include, Sniffer::Adapters::PatronAdapter) if defined?(::Patron::Session)
+::Patron::Session.include Sniffer::Adapters::PatronAdapter if defined?(::Patron::Session)

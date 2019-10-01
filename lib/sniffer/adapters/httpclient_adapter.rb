@@ -30,11 +30,9 @@ module Sniffer
         retryable_response = nil
 
         bm = Benchmark.realtime do
-          begin
-            do_get_block_without_sniffer(req, proxy, conn, &block)
-          rescue HTTPClient::RetryableResponse => e
-            retryable_response = e
-          end
+          do_get_block_without_sniffer(req, proxy, conn, &block)
+        rescue HTTPClient::RetryableResponse => e
+          retryable_response = e
         end
 
         if Sniffer.enabled?
@@ -56,4 +54,4 @@ module Sniffer
   end
 end
 
-HTTPClient.send(:include, Sniffer::Adapters::HTTPClientAdapter) if defined?(::HTTPClient)
+HTTPClient.include Sniffer::Adapters::HTTPClientAdapter if defined?(::HTTPClient)

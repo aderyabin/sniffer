@@ -1,17 +1,16 @@
 AllCops:
   # Include gemspec and Rakefile
   Include:
-    - 'lib/**/*.rb'
-    - 'lib/**/*.rake'
-    - 'spec/**/*.rb'
+    - "lib/**/*.rb"
+    - "lib/**/*.rake"
+    - "spec/**/*.rb"
   Exclude:
-    - 'bin/**/*'
-    - 'Gemfile'
-    - 'Rakefile'
-    - '*.gemspec'
+    - "bin/**/*"
+    - "Gemfile"
+    - "Rakefile"
+    - "*.gemspec"
   DisplayCopNames: true
   StyleGuideCopsOnly: false
-  TargetRubyVersion: 2.2
 
 Naming/AccessorMethodName:
   Enabled: false
@@ -24,14 +23,14 @@ Style/TrivialAccessors:
 
 Style/Documentation:
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
 
 Style/StringLiterals:
   Enabled: false
 
 Style/BlockDelimiters:
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
 
 Style/DoubleNegation:
   Enabled: false
@@ -47,22 +46,16 @@ Lint/AmbiguousBlockAssociation:
 
 Metrics/MethodLength:
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
 
 Metrics/LineLength:
   Max: 120
   Exclude:
-    - 'spec/**/*.rb'
+    - "spec/**/*.rb"
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*.rb'
-
-Rails/Date:
-  Enabled: false
-
-Rails/TimeZone:
-  Enabled: false
+    - "spec/**/*.rb"
 
 Security/YAMLLoad:
   Enabled: false
