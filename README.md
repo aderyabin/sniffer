@@ -1,6 +1,6 @@
 # Sniffer
 
-[![Build Status](https://travis-ci.org/aderyabin/sniffer.svg?branch=master)](https://travis-ci.org/aderyabin/sniffer) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Join the chat at https://gitter.im/aderyabin/sniffer](https://badges.gitter.im/aderyabin/sniffer.svg)](https://gitter.im/aderyabin/sniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build](https://github.com/aderyabin/sniffer/workflows/Run%20Tests/badge.svg)](https://github.com/aderyabin/sniffer/actions) [![Gem Version](https://badge.fury.io/rb/sniffer.svg)](https://rubygems.org/gems/sniffer) [![Join the chat at https://gitter.im/aderyabin/sniffer](https://badges.gitter.im/aderyabin/sniffer.svg)](https://gitter.im/aderyabin/sniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Sniffer aims to help:
 
@@ -18,10 +18,6 @@ Sniffer supports most common HTTP accessing libraries:
 * [Typhoeus](https://github.com/typhoeus/typhoeus)
 * [EM-HTTP-Request](https://github.com/igrigorik/em-http-request)
 * [Excon](https://github.com/excon/excon)
-
-
-<a href="https://evilmartians.com/">
-<img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54"></a>
 
 ## Demo
 
