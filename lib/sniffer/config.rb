@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "anyway_config"
+require_relative "middleware/chain"
 
 module Sniffer
   # Sniffer configuration
@@ -23,6 +24,13 @@ module Sniffer
                 enabled: false,
                 url_whitelist: nil,
                 url_blacklist: nil
+
+    def middleware
+      @middleware ||= Middleware::Chain.new
+
+      yield @middleware if block_given?
+      @middleware
+    end
 
     def capacity?
       store.is_a?(Hash) && store.key?(:capacity)

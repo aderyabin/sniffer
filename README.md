@@ -173,6 +173,24 @@ Sniffer.data[0].to_h
 # => {{:request=>{:host=>"example.com", ...}}
 ```
 
+### Middleware
+
+You can add the middleware to run custom code before/after the sniffed data was logged.
+
+```ruby
+Sniffer.middleware do |chain|
+  chain.add MyHook
+end
+
+class MyHook
+  def call(data_item)
+    puts "Before work"
+    yield
+    puts "After work"
+  end
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
