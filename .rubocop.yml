@@ -49,7 +49,7 @@ Metrics/MethodLength:
   Exclude:
     - "spec/**/*.rb"
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - "spec/**/*.rb"

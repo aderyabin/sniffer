@@ -13,7 +13,13 @@ RSpec.describe Excon do
     }
   end
   let(:get_params) { { path: '/?lang=ruby&author=matz', headers: headers } }
-  let(:post_params) { { path: '/data?lang=ruby', body: 'author=Matz' } }
+  let(:post_params) do
+    {
+      path: '/data?lang=ruby',
+      body: 'author=Matz',
+      headers: { 'user-agent' => 'excon/0.67.0', 'accept' => '*/*' }
+    }
+  end
   let(:json_params) do
     {
       path: '/json',
