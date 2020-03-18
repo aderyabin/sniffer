@@ -5,11 +5,13 @@ require 'spec_helper'
 RSpec.describe Sniffer do
   let(:klass) do
     Class.new do
-      def call(data_item)
+      def request(data_item)
         data_item.request.host = "modified.host"
 
         yield
       end
+
+      def response(data_item); end
     end
   end
   let(:request) do

@@ -38,7 +38,7 @@ module Sniffer
                                                                body: @response.body.to_s,
                                                                timing: bm)
 
-          data_item.log
+          Sniffer.notify_response(data_item)
         end
 
         @response

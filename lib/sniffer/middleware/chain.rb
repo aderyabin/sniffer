@@ -12,10 +12,16 @@ module Sniffer
   # end
   #
   # class MyHook
-  #   def call(data_item)
-  #     puts "Before work"
+  #   def request(data_item)
+  #     puts "Before request work"
   #     yield
-  #     puts "After work"
+  #     puts "After request work"
+  #   end
+  #
+  #   def response(data_item)
+  #     puts "Before response work"
+  #     yield
+  #     puts "After response work"
   #   end
   # end
   module Middleware
@@ -39,13 +45,25 @@ module Sniffer
         entries.delete_if { |entry| entry.klass == klass }
       end
 
-      def invoke(*args)
+      def invoke_request(*args)
         chain = map(&:make_new).dup
         traverse_chain = lambda do
           if chain.empty?
             yield
           else
-            chain.shift.call(*args, &traverse_chain)
+            chain.shift.request(*args, &traverse_chain)
+          end
+        end
+        traverse_chain.call
+      end
+
+      def invoke_response(*args)
+        chain = map(&:make_new).dup
+        traverse_chain = lambda do
+          if chain.empty?
+            yield
+          else
+            chain.shift.response(*args, &traverse_chain)
           end
         end
         traverse_chain.call

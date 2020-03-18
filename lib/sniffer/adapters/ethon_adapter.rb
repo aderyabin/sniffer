@@ -66,7 +66,7 @@ module Sniffer
                                                                   headers: hash_headers,
                                                                   body: @response_body,
                                                                   timing: bm)
-            @data_item.log
+            Sniffer.notify_response(@data_item)
 
           end
 

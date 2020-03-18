@@ -2,6 +2,7 @@
 
 require "anyway_config"
 require_relative "middleware/chain"
+require_relative "middleware/logger"
 
 module Sniffer
   # Sniffer configuration
@@ -26,7 +27,11 @@ module Sniffer
                 url_blacklist: nil
 
     def middleware
-      @middleware ||= Middleware::Chain.new
+      @middleware ||= begin
+        Middleware::Chain.new.tap do |chain|
+          chain.add(Sniffer::Middleware::Logger, logger, severity)
+        end
+      end
 
       yield @middleware if block_given?
       @middleware

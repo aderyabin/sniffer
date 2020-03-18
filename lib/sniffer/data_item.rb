@@ -31,12 +31,6 @@ response&.to_h
       }
     end
 
-    def log
-      return unless Sniffer.logger && allowed_to_sniff?
-
-      Sniffer.logger.log(Sniffer.config.severity, to_json)
-    end
-
     def to_log
       return {} unless Sniffer.config.logger
 

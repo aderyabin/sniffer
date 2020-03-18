@@ -183,7 +183,13 @@ Sniffer.middleware do |chain|
 end
 
 class MyHook
-  def call(data_item)
+  def request(data_item)
+    puts "Before work"
+    yield
+    puts "After work"
+  end
+
+  def response(data_item)
     puts "Before work"
     yield
     puts "After work"
