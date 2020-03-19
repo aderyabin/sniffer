@@ -76,7 +76,7 @@ module Sniffer
                                                              body: body_str,
                                                              timing: timing)
 
-        data_item.log
+        Sniffer.notify_response(data_item)
       end
     end
   end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "anyway_config"
+require_relative "middleware/chain"
+require_relative "middleware/logger"
 
 module Sniffer
   # Sniffer configuration
@@ -23,6 +25,17 @@ module Sniffer
                 enabled: false,
                 url_whitelist: nil,
                 url_blacklist: nil
+
+    def middleware
+      @middleware ||= begin
+        Middleware::Chain.new.tap do |chain|
+          chain.add(Sniffer::Middleware::Logger, logger, severity)
+        end
+      end
+
+      yield @middleware if block_given?
+      @middleware
+    end
 
     def capacity?
       store.is_a?(Hash) && store.key?(:capacity)

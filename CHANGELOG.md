@@ -1,3 +1,8 @@
+## 0.4.0 (March 18, 2020) ##
+
+* Added middleware support
+
+
 ## 0.3.2 (January 12, 2018) ##
 
 * Fix EventMachine::HttpClient not defined in Thin

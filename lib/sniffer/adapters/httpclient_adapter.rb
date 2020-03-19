@@ -44,7 +44,7 @@ module Sniffer
 
           conn.push(res)
 
-          data_item.log
+          Sniffer.notify_response(data_item)
         end
 
         raise retryable_response unless retryable_response.nil?

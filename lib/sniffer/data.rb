@@ -4,8 +4,6 @@ module Sniffer
   # Data class stores the data and controls capacity
   class Data < Array
     def store(data_item)
-      return unless data_item.allowed_to_sniff?
-
       if config.rotate?
         rotate(data_item)
       else

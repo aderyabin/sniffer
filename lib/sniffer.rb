@@ -48,11 +48,20 @@ module Sniffer
     end
 
     def store(data_item)
-      data.store(data_item) if config.store
+      return unless config.store
+      return unless data_item.allowed_to_sniff?
+
+      config.middleware.invoke_request(data_item) do
+        data.store(data_item)
+      end
     end
 
-    def logger
-      config.logger
+    def notify_response(data_item)
+      return unless config.store
+      return unless data_item.allowed_to_sniff?
+
+      config.middleware.invoke_response(data_item) do
+      end
     end
   end
 end
