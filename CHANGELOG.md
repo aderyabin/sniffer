@@ -1,4 +1,4 @@
-## 0.4.0 (March 18, 2020) ##
+## 0.4.0 (March 19, 2020) ##
 
 * Added middleware support
 
