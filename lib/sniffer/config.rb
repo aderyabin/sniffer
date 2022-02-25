@@ -27,10 +27,8 @@ module Sniffer
                 url_blacklist: nil
 
     def middleware
-      @middleware ||= begin
-        Middleware::Chain.new.tap do |chain|
-          chain.add(Sniffer::Middleware::Logger, logger, severity)
-        end
+      @middleware ||= Middleware::Chain.new.tap do |chain|
+        chain.add(Sniffer::Middleware::Logger, logger, severity)
       end
 
       yield @middleware if block_given?
