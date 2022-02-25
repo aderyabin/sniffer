@@ -31,6 +31,20 @@ Add this line to your application's Gemfile:
 gem 'sniffer'
 ```
 
+If you wish Sniffer to use `Module#prepend` instead of `alias_method`, you can cause individual adapters to use `prepend` instead with:
+
+```ruby
+gem 'sniffer', require: ['http_prepend', 'httpclient_prepend', 'sniffer']
+```
+
+It's important that `'sniffer'` is the last item in the list. See the `lib` directory for a list of prependable adapters.
+
+If you want all adapters to use `prepend`:
+
+```ruby
+gem 'sniffer', require: ['all_prepend', 'sniffer']
+```
+
 And then execute:
 
     $ bundle
