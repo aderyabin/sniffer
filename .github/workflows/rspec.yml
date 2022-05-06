@@ -31,4 +31,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Run RSpec
         run: |
-          bundle exec rake spec
+          bundle exec rspec
+      - name: Run RSpec (prepended)
+        run: |
+          bundle exec rspec -r all_prepend

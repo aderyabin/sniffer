@@ -6,42 +6,43 @@ module Sniffer
     module EthonAdapter
       # overrides http_request method
       module Http
-        def self.included(base)
-          base.class_eval do
-            alias_method :http_request_without_sniffer, :http_request
-            alias_method :http_request, :http_request_with_sniffer
-          end
-        end
-
-        # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def http_request_with_sniffer(url, action_name, options = {})
-          if Sniffer.enabled?
-            @data_item = Sniffer::DataItem.new
-            uri = URI("http://" + url)
-
-            @data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
-                                                                method: action_name.upcase,
-                                                                port: options[:port] || uri.port,
-                                                                headers: options[:headers].to_h,
-                                                                body: options[:body].to_s)
-
-            Sniffer.store(@data_item)
-          end
+          make_sniffer_request(url, action_name, options)
 
           http_request_without_sniffer(url, action_name, options)
         end
+
+        private
+
+        def make_sniffer_request(url, action_name, options)
+          return unless Sniffer.enabled?
+
+          @data_item = Sniffer::DataItem.new
+          uri = URI("http://#{url}")
+
+          @data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
+                                                              method: action_name.upcase,
+                                                              port: options[:port] || uri.port,
+                                                              headers: options[:headers].to_h,
+                                                              body: options[:body].to_s)
+
+          Sniffer.store(@data_item)
+        end
+
+        # Only used when prepending, see all_prepend.rb
+        module Prepend
+          include Http
+
+          def http_request(url, action_name, options = {})
+            make_sniffer_request(url, action_name, options)
+
+            super(url, action_name, options)
+          end
+        end
       end
-      # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
       # overrides perform method
       module Operations
-        def self.included(base)
-          base.class_eval do
-            alias_method :perform_without_sniffer, :perform
-            alias_method :perform, :perform_with_sniffer
-          end
-        end
-
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         def perform_with_sniffer
           bm = Benchmark.realtime do
@@ -49,12 +50,12 @@ module Sniffer
           end
 
           if Sniffer.enabled?
-            uri = URI("http://" + @url)
+            uri = URI("http://#{@url}")
             query = uri.path
             query += "?#{uri.query}" if uri.query
             @data_item.request.query = query
 
-            status = @response_headers.scan(%r{HTTP\/... (\d{3})}).flatten[0].to_i
+            status = @response_headers.scan(%r{HTTP/... (\d{3})}).flatten[0].to_i
             hash_headers = @response_headers
                            .split(/\r?\n/)[1..-1]
                            .each_with_object({}) do |item, res|
@@ -76,12 +77,35 @@ module Sniffer
           @return_code
         end
         # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+
+        # Only used when prepending, see all_prepend.rb
+        module Prepend
+          include Operations
+
+          def perform
+            perform_with_sniffer
+          end
+        end
       end
     end
   end
 end
 
 if defined?(::Ethon::Easy)
-  Ethon::Easy::Http.include Sniffer::Adapters::EthonAdapter::Http
-  Ethon::Easy::Operations.include Sniffer::Adapters::EthonAdapter::Operations
+  if defined?(Sniffer::Adapters::EthonAdapter::PREPEND)
+    Ethon::Easy::Http.prepend Sniffer::Adapters::EthonAdapter::Http::Prepend
+    Ethon::Easy::Operations.prepend Sniffer::Adapters::EthonAdapter::Operations::Prepend
+  else
+    Ethon::Easy::Http.class_eval do
+      include Sniffer::Adapters::EthonAdapter::Http
+      alias_method :http_request_without_sniffer, :http_request
+      alias_method :http_request, :http_request_with_sniffer
+    end
+
+    Ethon::Easy::Operations.class_eval do
+      include Sniffer::Adapters::EthonAdapter::Operations
+      alias_method :perform_without_sniffer, :perform
+      alias_method :perform, :perform_with_sniffer
+    end
+  end
 end
