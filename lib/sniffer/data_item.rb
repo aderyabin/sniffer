@@ -1,33 +1,23 @@
 # frozen_string_literal: true
 
-require 'active_attr'
+require 'dry-initializer'
 require 'json'
 require_relative 'request_policy'
 
 module Sniffer
   # Sniffer data item stores a request info
   class DataItem
-    include ActiveAttr::MassAssignment
-    attr_accessor :request, :response
+    extend Dry::Initializer
+
+    attr_writer :request, :response
+
+    option :request, optional: true
+    option :response, optional: true
 
     def to_h
       {
-        request: # frozen_string_literal: true
-# Sniffer data item stores a request info
-# Basic object for request and response objects
-# Stores http request data
-# rubocop:enable
-# Stores http response data
-
-request&.to_h,
-        response: # frozen_string_literal: true
-# Sniffer data item stores a request info
-# Basic object for request and response objects
-# Stores http request data
-# rubocop:enable
-# Stores http response data
-
-response&.to_h
+        request: request&.to_h,
+        response: response&.to_h
       }
     end
 
@@ -49,7 +39,7 @@ response&.to_h
 
     # Basic object for request and response objects
     class HttpObject
-      include ActiveAttr::MassAssignment
+      extend Dry::Initializer
 
       def log_message
         raise NotImplementedError
@@ -62,7 +52,14 @@ response&.to_h
 
     # Stores http request data
     class Request < HttpObject
-      attr_accessor :host, :port, :query, :method, :headers, :body
+      option :host, optional: true
+      option :port, optional: true
+      option :query, optional: true
+      option :method, optional: true
+      option :headers, optional: true
+      option :body, optional: true
+
+      attr_writer :host, :port, :query, :method, :headers, :body
 
       def to_h
         {
@@ -70,14 +67,7 @@ response&.to_h
           query: query,
           port: port,
           headers: headers,
-          body: # frozen_string_literal: true
-# Sniffer data item stores a request info
-# Basic object for request and response objects
-# Stores http request data
-# rubocop:enable
-# Stores http response data
-
-body&.to_s,
+          body: body&.to_s,
           method: method
         }
       end
@@ -106,20 +96,18 @@ body&.to_s,
 
     # Stores http response data
     class Response < HttpObject
-      attr_accessor :status, :headers, :body, :timing
+      attr_writer :status, :headers, :body, :timing
+
+      option :status, optional: true
+      option :headers, optional: true
+      option :body, optional: true
+      option :timing, optional: true
 
       def to_h
         {
           status: status,
           headers: headers,
-          body: # frozen_string_literal: true
-# Sniffer data item stores a request info
-# Basic object for request and response objects
-# Stores http request data
-# rubocop:enable
-# Stores http response data
-
-body&.to_s,
+          body: body&.to_s,
           timing: timing
         }
       end

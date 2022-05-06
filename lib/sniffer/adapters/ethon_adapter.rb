@@ -93,16 +93,14 @@ end
 
 if defined?(::Ethon::Easy)
   if defined?(Sniffer::Adapters::EthonAdapter::PREPEND)
-    Ethon::Easy::Http.prepend Sniffer::Adapters::EthonAdapter::Http::Prepend
-    Ethon::Easy::Operations.prepend Sniffer::Adapters::EthonAdapter::Operations::Prepend
+    Ethon::Easy.prepend Sniffer::Adapters::EthonAdapter::Http::Prepend
+    Ethon::Easy.prepend Sniffer::Adapters::EthonAdapter::Operations::Prepend
   else
-    Ethon::Easy::Http.class_eval do
+    Ethon::Easy.class_eval do
       include Sniffer::Adapters::EthonAdapter::Http
       alias_method :http_request_without_sniffer, :http_request
       alias_method :http_request, :http_request_with_sniffer
-    end
 
-    Ethon::Easy::Operations.class_eval do
       include Sniffer::Adapters::EthonAdapter::Operations
       alias_method :perform_without_sniffer, :perform
       alias_method :perform, :perform_with_sniffer
