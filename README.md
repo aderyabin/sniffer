@@ -192,7 +192,7 @@ Sniffer.data[0].to_h
 You can add the middleware to run custom code before/after the sniffed data was logged.
 
 ```ruby
-Sniffer.middleware do |chain|
+Sniffer.config.middleware do |chain|
   chain.add MyHook
 end
 
