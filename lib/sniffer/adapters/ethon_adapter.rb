@@ -18,7 +18,7 @@ module Sniffer
           return unless Sniffer.enabled?
 
           @data_item = Sniffer::DataItem.new
-          uri = URI("http://#{url}")
+          uri = URI(url.start_with?(%r{https?://}) ? url : "http://#{url}")
 
           @data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
                                                               method: action_name.upcase,
@@ -50,14 +50,13 @@ module Sniffer
           end
 
           if Sniffer.enabled?
-            uri = URI("http://#{@url}")
+            uri = URI(url.start_with?(%r{https?://}) ? url : "http://#{@url}")
             query = uri.path
             query += "?#{uri.query}" if uri.query
             @data_item.request.query = query
 
-            status = @response_headers.scan(%r{HTTP/... (\d{3})}).flatten[0].to_i
-            hash_headers = @response_headers
-                           .split(/\r?\n/)[1..-1]
+            status = response_code
+            hash_headers = (@response_headers.split(/\r?\n/)[1..-1] || [])
                            .each_with_object({}) do |item, res|
               k, v = item.split(": ")
               res[k] = v

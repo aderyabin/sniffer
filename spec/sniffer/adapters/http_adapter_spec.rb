@@ -9,6 +9,10 @@ RSpec.describe HTTP do
   let(:post_request) { HTTP.post('http://localhost:4567/data?lang=ruby', body: "author=Matz") }
   let(:post_json) { HTTP.post('http://localhost:4567/json', json: { 'lang' => 'Ruby', 'author' => 'Matz' }) }
 
+  def unresolved_request
+    HTTP.get('http://localh0st:45678/')
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

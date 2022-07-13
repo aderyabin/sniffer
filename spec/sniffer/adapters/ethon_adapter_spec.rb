@@ -6,7 +6,7 @@ RSpec.describe Ethon do
   let(:headers) { { "accept-encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3", "accept" => "*/*", "user-agent" => "Ruby", "host" => "localhost:4567" } }
   let(:get_request) do
     easy = Ethon::Easy.new
-    easy.http_request("localhost:4567/?lang=ruby&author=matz", :get, headers: headers)
+    easy.http_request("http://localhost:4567/?lang=ruby&author=matz", :get, headers: headers)
     easy.perform
   end
 
@@ -27,6 +27,12 @@ RSpec.describe Ethon do
                       :post,
                       headers: { 'Content-Type' => 'application/json; charset=UTF-8' },
                       body: { 'lang' => 'Ruby', 'author' => 'Matz' }.to_json)
+    easy.perform
+  end
+
+  def unresolved_request
+    easy = Ethon::Easy.new
+    easy.http_request('localh0st:45678', :get)
     easy.perform
   end
 

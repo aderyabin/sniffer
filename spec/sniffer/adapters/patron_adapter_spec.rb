@@ -10,6 +10,10 @@ RSpec.describe Patron::Session do
   let(:post_request) { session.post('/data?lang=ruby', "author=Matz") }
   let(:post_json) { session.post('/json', { 'lang' => 'Ruby', 'author' => 'Matz' }.to_json, "Content-Type" => "application/json; charset=UTF-8") }
 
+  def unresolved_request
+    Patron::Session.new(base_url: 'http://localhost:45678').get('/')
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

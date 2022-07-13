@@ -17,6 +17,10 @@ RSpec.describe Curl do
     end
   end
 
+  def unresolved_request
+    Curl::Easy.http_get('http://localh0st:45678/')
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

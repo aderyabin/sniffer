@@ -35,6 +35,15 @@ RSpec.describe EventMachine do
     }
   end
 
+  def unresolved_request
+    EventMachine.run {
+      http = EventMachine::HttpRequest.new("http://localh0st:45678").get
+      http.errback {
+        EventMachine.stop
+      }
+    }
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

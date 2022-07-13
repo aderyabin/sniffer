@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe Typhoeus do
   let(:headers) { { "accept-encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3", "accept" => "*/*", "user-agent" => "Ruby", "host" => "localhost:4567" } }
-  let(:get_request) { Typhoeus::Request.new('localhost:4567/?lang=ruby&author=matz', method: :get, headers: headers).run }
+  let(:get_request) { Typhoeus::Request.new('http://localhost:4567/?lang=ruby&author=matz', method: :get, headers: headers).run }
   let(:get_request_dynamic_params) do
     Typhoeus::Request.new("localhost:4567/?lang=ruby",
                           method: :get,
@@ -18,6 +18,10 @@ RSpec.describe Typhoeus do
                           method: :post,
                           body: { 'lang' => 'Ruby', 'author' => 'Matz' }.to_json,
                           headers: { 'Content-Type' => "application/json" }).run
+  end
+
+  def unresolved_request
+    Typhoeus::Request.new('localhost:45678').run
   end
 
   it 'logs', enabled: true do

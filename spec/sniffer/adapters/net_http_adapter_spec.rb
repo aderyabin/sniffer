@@ -31,6 +31,11 @@ RSpec.describe Net::HTTP do
     http.request(request)
   end
 
+  def unresolved_request
+    uri = URI.parse('http://localh0st:45678/')
+    Net::HTTP.get(uri)
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger
