@@ -55,9 +55,8 @@ module Sniffer
             query += "?#{uri.query}" if uri.query
             @data_item.request.query = query
 
-            status = @response_headers.scan(%r{HTTP/... (\d{3})}).flatten[0].to_i
-            hash_headers = @response_headers
-                           .split(/\r?\n/)[1..-1]
+            status = response_code
+            hash_headers = (@response_headers.split(/\r?\n/)[1..-1] || [])
                            .each_with_object({}) do |item, res|
               k, v = item.split(": ")
               res[k] = v

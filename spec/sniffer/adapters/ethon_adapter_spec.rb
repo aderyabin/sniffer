@@ -30,6 +30,12 @@ RSpec.describe Ethon do
     easy.perform
   end
 
+  def unresolved_request
+    easy = Ethon::Easy.new
+    easy.http_request('localh0st:45678', :get)
+    easy.perform
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

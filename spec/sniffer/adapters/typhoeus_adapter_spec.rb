@@ -20,6 +20,10 @@ RSpec.describe Typhoeus do
                           headers: { 'Content-Type' => "application/json" }).run
   end
 
+  def unresolved_request
+    Typhoeus::Request.new('localhost:45678').run
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

@@ -23,6 +23,10 @@ RSpec.describe HTTPClient do
     JSONClient.new.post(uri, 'lang' => 'Ruby', 'author' => 'Matz')
   end
 
+  def unresolved_request
+    client.get(URI('http://localh0st:45678/'))
+  end
+
   it 'logs', enabled: true do
     logger = double
     Sniffer.config.logger = logger

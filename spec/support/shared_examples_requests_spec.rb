@@ -40,6 +40,22 @@ RSpec.shared_examples "a sniffered" do |fldr|
     expect(Sniffer.data).to be_empty
   end
 
+  it 'preserves the original behavior for unresolved requests', enabled: true do
+    skip "Not implemented in adapter" unless respond_to?(:unresolved_request)
+
+    def error_class(enabled: true)
+      Sniffer.disable! unless enabled
+      unresolved_request
+      nil
+    rescue StandardError => e
+      e.class
+    ensure
+      Sniffer.enable!
+    end
+
+    expect(error_class).to eq(error_class(enabled: false))
+  end
+
   context 'with url_whitelist', enabled: true do
     it 'stores data with matched url' do
       Sniffer.config.url_whitelist = /localhost:4567/
