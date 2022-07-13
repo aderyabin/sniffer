@@ -18,7 +18,7 @@ module Sniffer
           return unless Sniffer.enabled?
 
           @data_item = Sniffer::DataItem.new
-          uri = URI("http://#{url}")
+          uri = URI(url.start_with?(%r{https?://}) ? url : "http://#{url}")
 
           @data_item.request = Sniffer::DataItem::Request.new(host: uri.host,
                                                               method: action_name.upcase,
@@ -50,7 +50,7 @@ module Sniffer
           end
 
           if Sniffer.enabled?
-            uri = URI("http://#{@url}")
+            uri = URI(url.start_with?(%r{https?://}) ? url : "http://#{@url}")
             query = uri.path
             query += "?#{uri.query}" if uri.query
             @data_item.request.query = query
