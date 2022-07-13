@@ -1,3 +1,6 @@
+* Fixed `NoMethodError` on Ethon/Typhoeus network failures by [@blaze182](https://github.com/blaze182)
+* Adjusted host and query parsing for Ethon/Typhoeus
+
 ## 0.5.0 (May 6, 2022) ##
 
 * Added prepend of all adapters by [@nate-at-gusto](https://github.com/nate-at-gusto)
