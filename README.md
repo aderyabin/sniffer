@@ -31,6 +31,20 @@ Add this line to your application's Gemfile:
 gem 'sniffer'
 ```
 
+If you wish Sniffer to use `Module#prepend` instead of `alias_method`, you can cause individual adapters to use `prepend` instead with:
+
+```ruby
+gem 'sniffer', require: ['http_prepend', 'httpclient_prepend', 'sniffer']
+```
+
+It's important that `'sniffer'` is the last item in the list. See the `lib` directory for a list of prependable adapters.
+
+If you want all adapters to use `prepend`:
+
+```ruby
+gem 'sniffer', require: ['all_prepend', 'sniffer']
+```
+
 And then execute:
 
     $ bundle
@@ -203,6 +217,15 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
+
+## Development (with Docker)
+
+Get local development environment working and tests running is very easy with docker-compose:
+```sh
+docker-compose run app bundle
+docker-compose run app bundle exec rspec
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/aderyabin/sniffer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
@@ -215,6 +238,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/aderya
 * [Stanislav Chereshkevich](https://github.com/dissident)
 * [Anatoliy Kurichev](https://github.com/russo-matrosso)
 * [Dmitriy Ivliev](https://github.com/moofkit)
+* [Nate Berkopec](https://github.com/nate-at-gusto)
 
 ## License
 

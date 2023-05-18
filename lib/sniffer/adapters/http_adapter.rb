@@ -4,13 +4,6 @@ module Sniffer
   module Adapters
     # HTTP adapter
     module HTTPAdapter
-      def self.included(base)
-        base.class_eval do
-          alias_method :request_without_sniffer, :request
-          alias_method :request, :request_with_sniffer
-        end
-      end
-
       # private
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -65,8 +58,27 @@ module Sniffer
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+      # Only used when prepending, see all_prepend.rb
+      module Prepend
+        include HTTPAdapter
+
+        def request(*args)
+          request_with_sniffer(*args)
+        end
+      end
     end
   end
 end
 
-HTTP::Client.include Sniffer::Adapters::HTTPAdapter if defined?(::HTTP::Client)
+if defined?(::HTTP::Client)
+  if defined?(Sniffer::Adapters::HTTPAdapter::PREPEND)
+    HTTP::Client.prepend Sniffer::Adapters::HTTPAdapter::Prepend
+  else
+    HTTP::Client.class_eval do
+      include Sniffer::Adapters::HTTPAdapter
+      alias_method :request_without_sniffer, :request
+      alias_method :request, :request_with_sniffer
+    end
+  end
+end

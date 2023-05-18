@@ -4,16 +4,6 @@ module Sniffer
   module Adapters
     # Curl adapter
     module CurlAdapter
-      def self.included(base)
-        base.class_eval do
-          alias_method :http_without_sniffer, :http
-          alias_method :http, :http_with_sniffer
-
-          alias_method :http_post_without_sniffer, :http_post
-          alias_method :http_post, :http_post_with_sniffer
-        end
-      end
-
       def http_with_sniffer(verb)
         sniffer_request(verb)
 
@@ -38,6 +28,37 @@ module Sniffer
         sniffer_response(bm)
 
         @res
+      end
+
+      # Only used when prepending, see all_prepend.rb
+      module Prepend
+        include CurlAdapter
+
+        def http(verb)
+          sniffer_request(verb)
+
+          super(verb)
+
+          bm = Benchmark.realtime do
+            @res = super(verb)
+          end
+
+          sniffer_response(bm)
+
+          @res
+        end
+
+        def http_post(*args)
+          sniffer_request(:POST, *args)
+
+          bm = Benchmark.realtime do
+            @res = super(*args)
+          end
+
+          sniffer_response(bm)
+
+          @res
+        end
       end
 
       private
@@ -82,4 +103,17 @@ module Sniffer
   end
 end
 
-Curl::Easy.include Sniffer::Adapters::CurlAdapter if defined?(::Curl::Easy)
+if defined?(::Curl::Easy)
+  if defined?(Sniffer::Adapters::CurlAdapter::PREPEND)
+    Curl::Easy.prepend Sniffer::Adapters::CurlAdapter::Prepend
+  else
+    Curl::Easy.class_eval do
+      include Sniffer::Adapters::CurlAdapter
+      alias_method :http_without_sniffer, :http
+      alias_method :http, :http_with_sniffer
+
+      alias_method :http_post_without_sniffer, :http_post
+      alias_method :http_post, :http_post_with_sniffer
+    end
+  end
+end

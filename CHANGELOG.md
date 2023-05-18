@@ -1,6 +1,13 @@
+## 0.5.0 (May 6, 2022) ##
+
+* Added prepend of all adapters by [@nate-at-gusto](https://github.com/nate-at-gusto)
+* Replaced `active_attr` to `dry-initializer`
+* Added rubies `2.7`, `3.0`, `3.1` support
+
+
 ## 0.4.0 (March 19, 2020) ##
 
-* Added middleware support
+* Added middleware support by [@dsalahutdinov](https://github.com/dsalahutdinov)
 
 
 ## 0.3.2 (January 12, 2018) ##
