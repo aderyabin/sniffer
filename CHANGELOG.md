@@ -1,3 +1,7 @@
+## 0.5.1 (Oct 12, 2023) ##
+
+* Fixed hostname handling for `ethon`-based libs by [@nullder](https://github.com/nulldef)
+
 ## 0.5.0 (May 6, 2022) ##
 
 * Added prepend of all adapters by [@nate-at-gusto](https://github.com/nate-at-gusto)
