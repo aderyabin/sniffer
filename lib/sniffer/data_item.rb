@@ -83,7 +83,7 @@ module Sniffer
 
           if log_settings["request_headers"]
             headers.each do |(k, v)|
-              hash[:"rq_#{k.to_s.tr("-", '_').downcase}"] = v
+              hash[:"rq_#{k.to_s.tr('-', '_').downcase}"] = v
             end
           end
 
@@ -119,7 +119,7 @@ module Sniffer
 
           if log_settings["response_headers"]
             headers.each do |(k, v)|
-              hash[:"rs_#{k.to_s.tr("-", '_').downcase}"] = v
+              hash[:"rs_#{k.to_s.tr('-', '_').downcase}"] = v
             end
           end
 

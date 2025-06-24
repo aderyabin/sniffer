@@ -9,6 +9,10 @@ module Sniffer
   class Config < Anyway::Config
     config_name :sniffer
 
+    # Only load configuration from static sources; prevent from trying to load
+    # from network sources, such as Doppler, to avoid recursion errors
+    self.configuration_sources = %i[env yml] if respond_to?(:configuration_sources)
+
     attr_config logger: Logger.new($stdout),
                 severity: Logger::Severity::DEBUG,
                 log: {

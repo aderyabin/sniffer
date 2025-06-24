@@ -12,6 +12,8 @@ AllCops:
     - "*.gemspec"
   DisplayCopNames: true
   StyleGuideCopsOnly: false
+  SuggestExtensions: false
+  NewCops: disable
 
 Naming/AccessorMethodName:
   Enabled: false
