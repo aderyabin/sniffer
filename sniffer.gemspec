@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "anyway_config", ">= 1.0"
+  spec.add_dependency "benchmark", "~> 0.4.1"
   spec.add_dependency "dry-initializer", "~> 3"
 
   spec.add_development_dependency "bundler", "~> 2"
