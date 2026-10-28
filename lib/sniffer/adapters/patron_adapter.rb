@@ -4,11 +4,11 @@ module Sniffer
   module Adapters
     # HTTP adapter
     module PatronAdapter
-      def request_with_sniffer(action_name, url, headers, options = {})
+      def request_with_sniffer(action_name, url, headers = {}, **options)
         data_item = request_sniffer_before(action_name, url, headers, options)
 
         bm = Benchmark.realtime do
-          @res = request_without_sniffer(action_name, url, headers, options)
+          @res = request_without_sniffer(action_name, url, headers, **options)
         end
 
         request_sniffer_after(data_item, bm)
@@ -52,11 +52,11 @@ module Sniffer
       module Prepend
         include PatronAdapter
 
-        def request(action_name, url, headers, options = {})
+        def request(action_name, url, headers = {}, **options)
           data_item = request_sniffer_before(action_name, url, headers, options)
 
           bm = Benchmark.realtime do
-            @res = super(action_name, url, headers, options)
+            @res = super(action_name, url, headers, **options)
           end
 
           request_sniffer_after(data_item, bm)
